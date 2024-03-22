@@ -1,0 +1,6 @@
+//quotes//
+- having quotes inside quotes will just remove thee quotes at ht eend and begining "'hi'" will be 'hi', '"hi"' will be "hi"
+- "ls"libft
+-ls >"out" libft
+- ls >"out>out2>ddf"
+- ls >"out"in 
