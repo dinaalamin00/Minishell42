@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/21 18:26:03 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/22 13:11:46 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ typedef struct s_mshell
 void	run_command(t_mshell *shell, char **env);
 
 //lexer
-
+void	lexer(t_mshell *shell);
 //parser
-
+void	parser(t_mshell *shell);
 //executor
 
 #endif
