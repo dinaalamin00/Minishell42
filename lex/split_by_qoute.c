@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/22 18:15:45 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:11:23 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 	if there is ant spaces after or before the quotes it will be put in the quotes string,
 		for the normal strings it will not contain any quotes
 */
+
 int	is_quote(char c)
 {
 	if ((c == '\"') || (c == '\''))
@@ -24,7 +25,7 @@ int	is_quote(char c)
 	return (0);
 }
 
-char	*copy_quoted_str(char *user_input, int *i)
+static char	*copy_quoted_str(char *user_input, int *i)
 {
 	int		start;
 	char	symbol;
@@ -43,14 +44,20 @@ char	*copy_quoted_str(char *user_input, int *i)
 			(*i)++;
 	}
 	else
+	{
 		while (!is_quote(user_input[*i])
-			&& user_input[*i] && user_input[*i] != 32)
+			&& user_input[*i])
+		{
+			if (user_input[*i] == 32 && is_quote(user_input[*i + 1]))
+				break ;
 			(*i)++;
+		}
+	}
 	token = ft_substr(user_input, start, (*i) - start);
 	return (token);
 }
 
-int	token_counter(char *user_input)
+static int	token_counter(char *user_input)
 {
 	int		i;
 	int		cnt;

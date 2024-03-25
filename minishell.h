@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/22 15:44:49 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/25 15:01:25 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,10 @@ void	run_command(t_mshell *shell, char **env);
 //lexer
 void	lexer(t_mshell *shell);
 void	quote_validity(char *user_input);
+int		is_quote(char c);
 void	redirect_validity(char *user_input);
 void	split_by_quote(t_mshell *shell);
+void	split_by_redirect(t_mshell *shell);
 //parser
 void	parser(t_mshell *shell);
 //executor
