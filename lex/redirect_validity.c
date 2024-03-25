@@ -34,12 +34,14 @@ static int	valid_redirect(char *user_input)
 			cnt++;
 			trimmed_input++;
 		}
-		if (cnt > 2 || *trimmed_input == '\0')
+		if (cnt > 2 || *trimmed_input == '\0'
+			||(symbol == '>' && *trimmed_input == '<'))
 		{
 			free(temp);
 			return (0);
 		}
 	}
+	free(temp);
 	return (1);
 }
 
