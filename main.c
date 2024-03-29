@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/25 15:06:19 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 08:51:06 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,5 +31,6 @@ int	main(int argc, char **argv, char **envp)
 			run_command(&shell, envp);
 		wait(NULL);
 	}
+	ft_free(shell.tokens);
 	return (0);
 }

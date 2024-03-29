@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/25 15:07:24 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:49:27 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,13 @@
 
 //- checks that each consecutive redirections should be less than 3
 //- each redirect should not be followed by null
+
+int	is_redirect(char c)
+{
+	if ((c == '<') || (c == '>'))
+		return (1);
+	return (0);
+}
 
 static int	valid_redirect(char *user_input)
 {
@@ -29,17 +36,17 @@ static int	valid_redirect(char *user_input)
 		trimmed_input = ft_strset(trimmed_input, "<>");
 		symbol = *trimmed_input;
 		cnt = 0;
-		while (symbol == *trimmed_input)
-		{
+		while (symbol == trimmed_input[cnt])
 			cnt++;
+		trimmed_input += cnt;
+		if ((cnt > 2) || (*trimmed_input == '\0')
+			|| (symbol == '>' && *trimmed_input == '<')
+			|| (is_redirect(*trimmed_input) && cnt == 2))
+			return (free(temp), 0);
+		while (*trimmed_input == 32)
 			trimmed_input++;
-		}
-		if (cnt > 2 || *trimmed_input == '\0'
-			|| (symbol == '>' && *trimmed_input == '<'))
-		{
-			free(temp);
-			return (0);
-		}
+		if ((is_redirect(*trimmed_input) && *(trimmed_input - 1) == 32))
+			return (free(temp), 0);
 	}
 	return (free(temp), 1);
 }

@@ -1,33 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strtrim.c                                       :+:      :+:    :+:   */
+/*   append_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/05 13:45:51 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 11:11:35 by diahmed          ###   ########.fr       */
+/*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
+/*   Updated: 2024/03/28 14:34:52 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+static int	array_len(char	**array)
 {
-	char	*ptr;
-	int		j;
+	int	i;
+
+	i = 0;
+	while (array[i])
+		i++;
+	return (i);
+}
+
+char	**append_to_array(char	**array, char *new_string)
+{
+	char	**new_array;
 	int		i;
 
 	i = 0;
-	j = ft_strlen(s1) - 1;
-	while (ft_strchr(set, s1[i]) && s1[i])
-		i++;
-	while (ft_strchr(set, s1[j]) && (j > i))
-		j--;
-	j++;
-	ptr = malloc((j - i + 1) * sizeof(char));
-	if (!ptr)
+	new_array = malloc ((array_len(array) + 2) * sizeof(char *));
+	if (!new_array)
 		return (NULL);
-	ft_strlcpy(ptr, s1 + i, j - i + 1);
-	return (ptr);
+	while (array[i])
+	{
+		new_array[i] = ft_strdup(array[i]);
+		i++;
+	}
+	new_array[i] = new_string;
+	i++;
+	new_array[i] = NULL;
+	ft_free(array);
+	return (new_array);
 }
