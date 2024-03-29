@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/22 13:11:46 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:30:39 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_mshell
 	t_flist	*stdfile;
 	t_param	*params;
 	int		here_doc_flag;
+	int		pipe_exit;
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
@@ -55,6 +56,14 @@ void	run_command(t_mshell *shell, char **env);
 void	lexer(t_mshell *shell);
 //parser
 void	parser(t_mshell *shell);
+void	expand_params(t_mshell *shell);
+
 //executor
+
+//utils
+void	env_to_list(t_mshell *shell, char **env);
+t_param	*get_param(t_param *params, char *key);
+void	add_var(t_param **param, char *key, char *value);
+void	free_params(t_param *params);
 
 #endif
