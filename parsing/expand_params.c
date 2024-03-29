@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/03/29 11:39:43 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:51:44 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	expand_params(t_mshell *shell)
 		quote = ft_strset(shell->tokens[i], "\'\"");
 		if (!quote || *quote != '\'')
 			expand_token(shell, i);
+		printf("\033[1;41mtoken: %s\033[0m\n", shell->tokens[i]);
 		i++;
 	}
+
 }

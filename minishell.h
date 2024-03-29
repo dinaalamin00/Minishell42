@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 12:29:18 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:54:36 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	split_by_redirect(t_mshell *shell);
 void	split_by_space(t_mshell *shell);
 
 //parser
-void	parser(t_mshell *shell);
+void	parser(t_mshell *shell, char **env);
 void	expand_params(t_mshell *shell);
 
 //executor
