@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 11:30:39 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/29 12:29:18 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,14 @@ void	run_command(t_mshell *shell, char **env);
 
 //lexer
 void	lexer(t_mshell *shell);
+void	quote_validity(char *user_input);
+int		is_quote(char c);
+void	redirect_validity(char *user_input);
+int		is_redirect(char c);
+void	split_by_quote(t_mshell *shell);
+void	split_by_redirect(t_mshell *shell);
+void	split_by_space(t_mshell *shell);
+
 //parser
 void	parser(t_mshell *shell);
 void	expand_params(t_mshell *shell);
@@ -65,5 +73,6 @@ void	env_to_list(t_mshell *shell, char **env);
 t_param	*get_param(t_param *params, char *key);
 void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
+char	**append_to_array(char	**array, char *new_string);
 
 #endif

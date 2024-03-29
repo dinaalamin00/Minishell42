@@ -1,11 +1,11 @@
 SRC = main.c run_command.c\
-	lex/lexer.c\
 	parsing/parser.c parsing/expand_params.c\
+	lex/lexer.c lex/quote_validity.c lex/redirect_validity.c  lex/split_by_qoute.c lex/split_by_redirect.c lex/split_by_space.c\
 	execution/executor.c\
-	utils/env_utils.c
+	utils/append_array.c utils/env_utils.c\
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror
-READLINE = -lreadline -I/usr/local/opt/readline/include -L/usr/local/opt/readline/lib
+READLINE = -lreadline
 NAME = minishell
 LIBFT = libft/libft.a
 
