@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/25 18:11:23 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:45:44 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,4 +113,3 @@ void	split_by_quote(t_mshell *shell)
 	tokens[j] = NULL;
 	shell->tokens = tokens;
 }
-

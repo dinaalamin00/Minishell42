@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:26:39 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/28 15:54:06 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 17:44:18 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ void	split_by_space(t_mshell *shell)
 	ft_free(shell->tokens);
 	shell->tokens = new_tokens;
 }
-

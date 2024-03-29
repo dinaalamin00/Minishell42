@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_redirect.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:45:50 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 14:07:07 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:44:03 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 char	*copy_symbols(char	*str)
 {
@@ -19,13 +18,13 @@ char	*copy_symbols(char	*str)
 	char	*dest;
 
 	i = 0;
-	while ((str[i] == '<' || str[i] == '>') && (str[i]))
+	while (is_redirect(str[i]) && (str[i]))
 		i++;
 	dest = malloc ((i + 1) * sizeof (char ));
 	if (!dest)
 		return (NULL);
 	i = 0;
-	while ((str[i] == '<' || str[i] == '>') && (str[i]))
+	while (is_redirect(str[i]) && (str[i]))
 	{
 		dest[i] = str[i];
 		i++;
@@ -76,7 +75,7 @@ void	split_by_redirect(t_mshell *shell)
 			}
 		}
 		new_tokens = append_to_array(new_tokens,
-				ft_strccpy(shell->tokens[i++], "<>"));
+				ft_strdup(shell->tokens[i++]));
 	}
 	ft_free(shell->tokens);
 	shell->tokens = new_tokens;

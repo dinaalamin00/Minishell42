@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 13:06:51 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/03/29 18:37:09 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,5 @@ int	main(int argc, char **argv, char **envp)
 			run_command(&shell, envp);
 		wait(NULL);
 	}
-	if (shell.tokens)
-		ft_free(shell.tokens);
 	return (0);
 }
