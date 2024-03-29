@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:04:46 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/14 10:09:36 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/25 18:11:20 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ char	*ft_strccpy(char *src, char *set)
 	if (!src)
 		return (NULL);
 	dest = malloc ((line_len(src, set) + 1) * sizeof(char));
-	if (!dest)
-		return (NULL);
 	while (src[i])
 	{
 		if (!ft_strchr(set, src[i]))
