@@ -71,5 +71,6 @@ char	**ft_free(char **ptr);
 char	*ft_strccpy(char *src, char *set);
 char	*ft_strset(char *str, char *set);
 int		ft_strcmp(char *s1, char *s2);
+char	*ft_strrset(const char *s, char *set);
 
 #endif

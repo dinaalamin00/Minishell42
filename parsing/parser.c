@@ -16,6 +16,7 @@ void	parser(t_mshell *shell, char **env)
 {
 	env_to_list(shell, env);
 	expand_params(shell);
+	parse_files(shell);
 	//open_dup(shell);
 	//remove_redrections
 	//remove_quotes_spaces

@@ -16,9 +16,11 @@ void	run_command(t_mshell *shell, char **env)
 {
 	lexer(shell);
 	parser(shell, env);
+	// for (int i = 0; shell->tokens[i]; i++)
+	// 	printf("\033[1;41mtoken: (%s)\033[0m\n", shell->tokens[i]);
 	for (int i = 0; shell->tokens[i]; i++)
-		printf("\033[1;41mtoken: %s\033[0m\n", shell->tokens[i]);
-	ft_free(shell->tokens);
+		printf("(%s)\n", shell->tokens[i]);
+	// ft_free(shell->tokens);
 	free_params(shell->params);
 	// check_files(shell);
 	// open_dup(shell);

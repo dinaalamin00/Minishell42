@@ -65,6 +65,7 @@ void	split_by_space(t_mshell *shell);
 //parser
 void	parser(t_mshell *shell, char **env);
 void	expand_params(t_mshell *shell);
+void	parse_files(t_mshell *shell);
 
 //executor
 
@@ -74,5 +75,9 @@ t_param	*get_param(t_param *params, char *key);
 void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
+char	**join_to_last(char	**array, char *new_string);
+char	*costum_trim(char *s1, char c, int pos);
+void	close_quote(char **str, char symbol);
+
 
 #endif
