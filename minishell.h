@@ -6,12 +6,18 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 18:09:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:09:12 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+# define RD 0
+# define WR 1
+# define APPEND 2
+# define RDWR 3
+# define HERE_DOC 4
 
 # include <stdio.h>
 # include <unistd.h>
@@ -66,18 +72,21 @@ void	split_by_space(t_mshell *shell);
 void	parser(t_mshell *shell, char **env);
 void	expand_params(t_mshell *shell);
 void	parse_files(t_mshell *shell);
+void	join_quote(t_mshell *shell);
 
 //executor
-
+void    executor(t_mshell *shell);
+void	open_dup(t_mshell *shell);
 //utils
 void	env_to_list(t_mshell *shell, char **env);
 t_param	*get_param(t_param *params, char *key);
 void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
-char	**join_to_last(char	**array, char *new_string);
 char	*costum_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char symbol);
+void	flst_addback(t_flist **lst, char *name, int mode);
+void	flst_clear(t_flist **lst);
 
 
 #endif

@@ -3,11 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:59:59 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/03/21 18:00:09 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:09:16 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void    executor(t_mshell *shell)
+{
+    open_dup(shell);
+}

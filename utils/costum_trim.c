@@ -22,6 +22,6 @@ char	*costum_trim(char *s1, char c, int pos)
 	if (!ptr)
 		return (NULL);
 	ft_strlcpy(ptr, s1 + i, j - i + 1);
-	// free(s1);
+	free(s1);
 	return (ptr);
 }

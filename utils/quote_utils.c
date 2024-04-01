@@ -9,9 +9,10 @@ void	close_quote(char **str, char symbol)
 	temp = malloc (ft_strlen(*str) + 2);
 	if (!temp)
 		return ;
-	while (*str[i])
+	i = 0;
+	while ((*str)[i])
 	{
-		temp[i] = *str[i];
+		temp[i] = (*str)[i];
 		i++;
 	}
 	temp[i++] = symbol;
