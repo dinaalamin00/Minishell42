@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 13:49:22 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ static char	**join_to_last(char	**array, char *new_string)
 	symbol = array[i][ft_strlen(array[i]) - 1];
 	new_temp = ft_strdup(new_string);
 	if (ft_strset(new_string, "\'\""))
-		new_temp = costum_trim(new_temp, *new_temp, 1);
-	array[i] = ft_strjoin(costum_trim(array[i], symbol, 2), new_temp);
+		new_temp = custom_trim(new_temp, *new_temp, 1);
+	array[i] = ft_strjoin(custom_trim(array[i], symbol, 2), new_temp);
 	if (ft_strset(new_string, "\'\""))
 	{
 		spaces = ft_strrset(array[i], "\'\"");
-		array[i] = costum_trim(temp, 32, 2);
-		array[i] = costum_trim(array[i], *spaces, 2);
+		array[i] = custom_trim(temp, 32, 2);
+		array[i] = custom_trim(array[i], *spaces, 2);
 	}
 	close_quote(&array[i], symbol);
 	if (ft_strset(new_string, "\'\""))

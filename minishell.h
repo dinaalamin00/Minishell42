@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 16:02:35 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ t_param	*get_param(t_param *params, char *key);
 void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
-char	*costum_trim(char *s1, char c, int pos);
+char	*custom_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char symbol);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);

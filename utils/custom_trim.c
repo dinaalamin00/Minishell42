@@ -6,13 +6,13 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:53:58 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:54:04 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*costum_trim(char *s1, char c, int pos)
+char	*custom_trim(char *s1, char c, int pos)
 {
 	char	*ptr;
 	int		j;

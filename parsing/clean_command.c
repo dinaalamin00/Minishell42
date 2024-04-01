@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_command.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 10:23:16 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/01 13:46:25 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,9 @@ void	clean_command(t_mshell *shell)
 	{
 		if (shell->tokens[i][0])
 		{
-			temp = shell->tokens[i];
-			shell->tokens[i] = ft_strtrim(shell->tokens[i], " \t");
-			free(temp);
+			shell->tokens[i] = custom_trim(shell->tokens[i], ' ', 0);
 			if (is_quote(shell->tokens[i][0]))
-			{
-				temp = shell->tokens[i];
-				shell->tokens[i] = ft_strtrim(shell->tokens[i], "\"");
-				free(temp);
-			}
+				shell->tokens[i] = custom_trim(shell->tokens[i], shell->tokens[i][0], 0);
 			shell->command = append_to_array(shell->command,
 					ft_strdup(shell->tokens[i]));
 		}
