@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 13:06:51 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:04:41 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	pid_t		pid;
 	int			input_len;
 
-	(void)argc;
-	(void)argv;
+	ft_bzero(&shell, sizeof(shell));
 	while (1)
 	{
 		shell.user_input = readline("$ ");
@@ -33,5 +32,7 @@ int	main(int argc, char **argv, char **envp)
 	}
 	if (shell.tokens)
 		ft_free(shell.tokens);
+	if (shell.user_input)
+		free(shell.user_input);
 	return (0);
 }
