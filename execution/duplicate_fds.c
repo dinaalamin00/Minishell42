@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:11:57 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:40:20 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ static void	open_file(t_mshell *shell)
 			perror(file->name);
 		file = file->next;
 	}
-	shell->stdfile = file;
 }
 void	open_dup(t_mshell *shell)
 {

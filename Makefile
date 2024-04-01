@@ -4,7 +4,7 @@ SRC = main.c run_command.c\
 	execution/executor.c execution/duplicate_fds.c\
 	utils/append_array.c utils/env_utils.c utils/quote_utils.c utils/costum_trim.c utils/file_utils.c
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror --fsanitise=address
+CFLAGS = -Wall -Wextra -Werror
 READLINE = -lreadline
 NAME = minishell
 LIBFT = libft/libft.a

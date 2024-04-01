@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:09:12 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:42:03 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	parse_files(t_mshell *shell);
 void	join_quote(t_mshell *shell);
 
 //executor
-void    executor(t_mshell *shell);
+void    executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
 //utils
 void	env_to_list(t_mshell *shell, char **env);
@@ -87,6 +87,7 @@ char	*costum_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char symbol);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
+
 
 
 #endif
