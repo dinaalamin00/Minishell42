@@ -1,23 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   ft_strrset.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 17:59:19 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/03/29 18:03:59 by diahmed          ###   ########.fr       */
+/*   Created: 2024/04/01 15:51:49 by diahmed           #+#    #+#             */
+/*   Updated: 2024/04/01 15:51:55 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	lexer(t_mshell *shell)
+char	*ft_strrset(const char *s, char *set)
 {
-	quote_validity(shell->user_input);
-	split_by_quote(shell);
-	free(shell->user_input);
-	split_by_redirect(shell);
-	split_by_space(shell);
-	redirect_validity(shell);
+	int	i;
+
+	i = ft_strlen(s);
+	while (i >= 0)
+	{
+		if (ft_strchr(set, ((char *)s)[i]))
+			return ((char *)s + i);
+		i--;
+	}
+	return (0);
 }

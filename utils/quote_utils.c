@@ -1,23 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   quote_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 17:59:19 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/03/29 18:03:59 by diahmed          ###   ########.fr       */
+/*   Created: 2024/04/01 15:54:19 by diahmed           #+#    #+#             */
+/*   Updated: 2024/04/01 15:54:22 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	lexer(t_mshell *shell)
+void	close_quote(char **str, char symbol)
 {
-	quote_validity(shell->user_input);
-	split_by_quote(shell);
-	free(shell->user_input);
-	split_by_redirect(shell);
-	split_by_space(shell);
-	redirect_validity(shell);
+	char	*temp;
+	int		i;
+
+	temp = malloc (ft_strlen(*str) + 2);
+	if (!temp)
+		return ;
+	i = 0;
+	while ((*str)[i])
+	{
+		temp[i] = (*str)[i];
+		i++;
+	}
+	temp[i++] = symbol;
+	temp[i] = '\0';
+	free(*str);
+	*str = temp;
 }

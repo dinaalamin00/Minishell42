@@ -6,17 +6,11 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/25 18:11:23 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 15:54:48 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/*
-	this function splits the comand by quotes,
-	if there is ant spaces after or before the quotes it will be put in the quotes string,
-		for the normal strings it will not contain any quotes
-*/
 
 int	is_quote(char c)
 {
@@ -113,4 +107,3 @@ void	split_by_quote(t_mshell *shell)
 	tokens[j] = NULL;
 	shell->tokens = tokens;
 }
-

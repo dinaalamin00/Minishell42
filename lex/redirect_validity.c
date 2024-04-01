@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 11:49:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/03/29 18:36:33 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,44 +22,35 @@ int	is_redirect(char c)
 	return (0);
 }
 
-static int	valid_redirect(char *user_input)
+static int	valid_redirect(char **user_input, int i)
 {
-	int		cnt;
-	char	symbol;
-	char	*trimmed_input;
-	char	*temp;
-
-	trimmed_input = ft_strtrim(user_input, " \t");
-	temp = trimmed_input;
-	while (trimmed_input && ft_strset(trimmed_input, "<>"))
-	{
-		trimmed_input = ft_strset(trimmed_input, "<>");
-		symbol = *trimmed_input;
-		cnt = 0;
-		while (symbol == trimmed_input[cnt])
-			cnt++;
-		trimmed_input += cnt;
-		if ((cnt > 2) || (*trimmed_input == '\0')
-			|| (symbol == '>' && *trimmed_input == '<')
-			|| (is_redirect(*trimmed_input) && cnt == 2))
-			return (free(temp), 0);
-		while (*trimmed_input == 32)
-			trimmed_input++;
-		if ((is_redirect(*trimmed_input) && *(trimmed_input - 1) == 32))
-			return (free(temp), 0);
-	}
-	return (free(temp), 1);
+	if (ft_strlen(user_input[i]) > 2 || (!user_input[i + 1])
+		|| (user_input[i][0] == '>' && user_input[i][1] == '<'))
+		return (0);
+	return (1);
 }
 
-void	redirect_validity(char *user_input)
+void	redirect_validity(t_mshell *shell)
 {
-	if (ft_strset(user_input, "<>"))
+	int		i;
+	char	*trimmed_input;
+	char	*input_ptr;
+
+	i = 0;
+	while (shell->tokens[i])
 	{
-		if (!valid_redirect(user_input))
+		if (!ft_strset(shell->tokens[i], "\'\""))
 		{
-			ft_putendl_fd("syntax error, unexpected token", 2);
-			free(user_input);
-			exit (EXIT_FAILURE);
+			if (ft_strset(shell->tokens[i], "<>"))
+			{
+				if (!valid_redirect(shell->tokens, i))
+				{
+					ft_putendl_fd("syntax error, unexpected token", 2);
+					ft_free(shell->tokens);
+					exit (EXIT_FAILURE);
+				}
+			}
 		}
+		i++;
 	}
 }
