@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/01 13:16:37 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/01 15:55:51 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,4 @@ void	expand_params(t_mshell *shell)
 			expand_token(shell, i);
 		i++;
 	}
-
 }
