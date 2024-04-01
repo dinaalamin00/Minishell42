@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:52:58 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:02:35 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	parser(t_mshell *shell, char **env);
 void	expand_params(t_mshell *shell);
 void	parse_files(t_mshell *shell);
 void	join_quote(t_mshell *shell);
+void	clean_command(t_mshell *shell);
 
 //executor
 void	executor(t_mshell *shell, char **env);

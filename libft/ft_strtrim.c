@@ -6,13 +6,13 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/05 13:45:51 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 14:59:11 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/01 16:04:16 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_strtrim(char const *s1, char const *set)
+char	*ft_strtrim(char *s1, char const *set)
 {
 	char	*ptr;
 	int		j;
