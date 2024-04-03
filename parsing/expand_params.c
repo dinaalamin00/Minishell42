@@ -28,7 +28,7 @@ void	expand_key(t_mshell *shell, char *temp, int i)
 		shell->tokens[i] = ft_strdup(before);
 		free(before);
 	}
-	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t"))
+	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t"))
 		shell->tokens[i] = ft_strjoin(shell->tokens[i],
 				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$"));
 	// printf("key: (%s)\n", key);
