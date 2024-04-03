@@ -64,6 +64,7 @@ t_param	*get_param(t_param *params, char *key)
 {
 	t_param	*param;
 
+	// printf("param key: %s\n", key);
 	param = params;
 	if (!key)
 		return (NULL);

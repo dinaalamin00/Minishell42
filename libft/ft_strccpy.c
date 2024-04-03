@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-
+#include <stdio.h>
 static int	line_len(char *str, char *set)
 {
 	int	i;

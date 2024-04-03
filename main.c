@@ -21,6 +21,7 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&shell, sizeof(shell));
 	while (1)
 	{
+		printf("> ");
 		scanf("%s", scanned);
 		(&shell)->user_input = ft_strdup(scanned);
 		input_len = ft_strlen(shell.user_input) + 1;
@@ -31,6 +32,6 @@ int	main(int argc, char **argv, char **envp)
 			run_command(&shell, envp);
 		wait(NULL);
 	}
-	// free(shell.user_input);
+	free(shell.user_input);
 	return (0);
 }
