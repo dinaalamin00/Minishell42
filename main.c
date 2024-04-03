@@ -21,7 +21,6 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&shell, sizeof(shell));
 	while (1)
 	{
-		ft_bzero(&shell, sizeof(t_mshell));
 		shell.user_input = readline("$ ");
 		input_len = ft_strlen(shell.user_input) + 1;
 		if (!ft_strncmp(shell.user_input, "exit", input_len))
