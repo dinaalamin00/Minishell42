@@ -17,11 +17,12 @@ int	main(int argc, char **argv, char **envp)
 	t_mshell	shell;
 	pid_t		pid;
 	int			input_len;
-
+	char	*scanned;
 	ft_bzero(&shell, sizeof(shell));
 	while (1)
 	{
-		shell.user_input = readline("$ ");
+		scanf("%s", scanned);
+		(&shell)->user_input = ft_strdup(scanned);
 		input_len = ft_strlen(shell.user_input) + 1;
 		if (!ft_strncmp(shell.user_input, "exit", input_len))
 			break ;
