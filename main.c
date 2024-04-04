@@ -19,19 +19,12 @@ int	main(int argc, char **argv, char **envp)
 	int			input_len;
 	char	*scanned;
 	ft_bzero(&shell, sizeof(shell));
-	while (1)
-	{
-		printf("> ");
-		scanf("%s", scanned);
-		(&shell)->user_input = ft_strdup(scanned);
-		input_len = ft_strlen(shell.user_input) + 1;
-		if (!ft_strncmp(shell.user_input, "exit", input_len))
-			break ;
-		pid = fork();
-		if (!pid)
-			run_command(&shell, envp);
-		wait(NULL);
-	}
+	(&shell)->user_input = ft_strdup("ls << ");
+	input_len = ft_strlen(shell.user_input) + 1;
+	pid = fork();
+	if (!pid)
+		run_command(&shell, envp);
+	wait(NULL);
 	free(shell.user_input);
 	return (0);
 }

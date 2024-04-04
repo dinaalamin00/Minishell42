@@ -14,7 +14,7 @@
 
 void	lexer(t_mshell *shell)
 {
-	quote_validity(shell->user_input);
+	// quote_validity(shell->user_input);
 	split_by_quote(shell);
 	free(shell->user_input);
 	split_by_redirect(shell);

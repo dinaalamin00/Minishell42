@@ -12,10 +12,21 @@
 
 #include "../minishell.h"
 
-// static int	here_doc(char *delimiter)
-// {
+static int	here_doc(char *delimiter)
+{
+	char	*line;
 
-// }
+	int	fd;
+	dup2(STDIN_FILENO, fd);
+	line = get_next_line(STDIN_FILENO);
+	while (line)
+	{
+		write(fd, line, ft_strlen(line));
+		free (line);
+		line = get_next_line(0);
+	}
+	return (fd);
+}
 static void	open_file(t_mshell *shell)
 {
 	t_flist	*file;
@@ -25,8 +36,8 @@ static void	open_file(t_mshell *shell)
 	{
 		if (file->mode == RD)
 			file->fd = open(file->name, O_RDONLY, 0644);
-		// else if (file->mode == HERE_DOC)
-		// 	file->fd = here_doc(file->name);
+		else if (file->mode == HERE_DOC)
+			file->fd = here_doc(file->name);
 		else if (file->mode == WR)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (file->mode == APPEND)
