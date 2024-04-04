@@ -15,16 +15,23 @@
 static int	here_doc(char *delimiter)
 {
 	char	*line;
+	char	*new_delim;
 
 	int	fd;
+	new_delim = ft_str_join(delimiter, "\n");
 	dup2(STDIN_FILENO, fd);
 	line = get_next_line(STDIN_FILENO);
 	while (line)
 	{
-		write(fd, line, ft_strlen(line));
+		if (ft_strncmp(line, new_delim, ft_strlen(line) + 1) == 0)
+		{
+			free(line);
+			break;
+		}
 		free (line);
 		line = get_next_line(0);
 	}
+	free(new_delim);
 	return (fd);
 }
 static void	open_file(t_mshell *shell)

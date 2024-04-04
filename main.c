@@ -19,7 +19,7 @@ int	main(int argc, char **argv, char **envp)
 	int			input_len;
 	char	*scanned;
 	ft_bzero(&shell, sizeof(shell));
-	(&shell)->user_input = ft_strdup("ls << ");
+	(&shell)->user_input = ft_strdup("ls << eof");
 	input_len = ft_strlen(shell.user_input) + 1;
 	pid = fork();
 	if (!pid)

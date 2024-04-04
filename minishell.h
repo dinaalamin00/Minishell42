@@ -28,6 +28,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
+# include "GNL/get_next_line.h"
 
 typedef struct s_flist
 {
