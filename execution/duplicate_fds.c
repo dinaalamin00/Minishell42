@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   duplicate_fds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:54:58 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:13:14 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,26 +14,25 @@
 
 static int	here_doc(char *delimiter)
 {
+	int		fd[2];
 	char	*line;
-	char	*new_delim;
 
-	int	fd;
-	new_delim = ft_str_join(delimiter, "\n");
-	dup2(STDIN_FILENO, fd);
-	line = get_next_line(STDIN_FILENO);
-	while (line)
+	if (pipe(fd) < 0)
+		perror(NULL);
+	line = get_next_line(0);
+	delimiter = ft_str_join(delimiter, "\n");
+	while (ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
 	{
-		if (ft_strncmp(line, new_delim, ft_strlen(line) + 1) == 0)
-		{
-			free(line);
-			break;
-		}
-		free (line);
+		ft_putstr_fd(line, fd[1]);
+		free(line);
 		line = get_next_line(0);
 	}
-	free(new_delim);
-	return (fd);
+	free(delimiter);
+	free(line);
+	close(fd[1]);
+	return (fd[0]);
 }
+
 static void	open_file(t_mshell *shell)
 {
 	t_flist	*file;
@@ -73,7 +72,7 @@ void	open_dup(t_mshell *shell)
 		else if (file->mode == 1 || file->mode == 2)
 		{
 			if (dup2(file->fd, STDOUT_FILENO) < 0)
-				perror("Error duplicsitng fd");
+				perror("Error duplicating fd");
 		}
 		close (file->fd);
 		file = file->next;

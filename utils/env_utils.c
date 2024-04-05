@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/03/29 11:19:14 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/05 11:52:18 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_param	*get_param(t_param *params, char *key)
 {
 	t_param	*param;
 
-	// printf("param key: %s\n", key);
 	param = params;
 	if (!key)
 		return (NULL);

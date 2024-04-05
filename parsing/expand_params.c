@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_params.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/01 16:04:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:08:17 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,6 @@ void	expand_key(t_mshell *shell, char *temp, int i)
 	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t"))
 		shell->tokens[i] = ft_strjoin(shell->tokens[i],
 				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$"));
-	// printf("key: (%s)\n", key);
-	// printf("token after expansion: %s\n", shell->tokens[i]);
 	free(key);
 }
 
@@ -62,8 +60,9 @@ void	expand_token(t_mshell *shell, int i)
 	while (ft_strchr(shell->tokens[i], '$'))
 	{
 		temp = shell->tokens[i];
-		if (ft_strchr(temp, '$') && 
-			(*(ft_strchr(temp, '$') + 1) == '?' || *(ft_strchr(temp, '$') + 1) == '$'))
+		if (ft_strchr(temp, '$')
+			&& (*(ft_strchr(temp, '$') + 1) == '?'
+				|| *(ft_strchr(temp, '$') + 1) == '$'))
 			special_expand(shell, temp, i);
 		else if (ft_strchr(temp, '$'))
 			expand_key(shell, temp, i);
