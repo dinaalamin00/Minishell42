@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_params.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/01 16:04:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/05 12:08:17 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,29 @@ void	expand_key(t_mshell *shell, char *temp, int i)
 		shell->tokens[i] = ft_strdup(before);
 		free(before);
 	}
-	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t"))
+	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t"))
 		shell->tokens[i] = ft_strjoin(shell->tokens[i],
 				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$"));
 	free(key);
 }
 
-void	expand_dollar(t_mshell *shell, char *temp, int i)
+void	special_expand(t_mshell *shell, char *temp, int i)
 {
 	char	*before;
 	char	*exit_status;
+	char	*start;
 
-	exit_status = ft_itoa(shell->pipe_exit);
+	start = ft_strchr(temp, '$');
 	before = ft_strccpy(temp, "$");
-	shell->tokens[i] = ft_strjoin(before, exit_status);
-	shell->tokens[i] = ft_strjoin(shell->tokens[i], ft_strchr(temp, '$') + 2);
-	free(exit_status);
+	if (*(start + 1) == '?')
+	{
+		exit_status = ft_itoa(shell->pipe_exit);
+		shell->tokens[i] = ft_strjoin(before, exit_status);
+		shell->tokens[i] = ft_strjoin(shell->tokens[i], start + 2);
+		free(exit_status);
+	}
+	else
+		shell->tokens[i] = ft_strjoin(before, ft_strchr(temp, '$') + 2);
 }
 
 void	expand_token(t_mshell *shell, int i)
@@ -53,10 +60,12 @@ void	expand_token(t_mshell *shell, int i)
 	while (ft_strchr(shell->tokens[i], '$'))
 	{
 		temp = shell->tokens[i];
-		if (ft_strchr(temp, '$') && *(ft_strchr(temp, '$') + 1) != '?')
+		if (ft_strchr(temp, '$')
+			&& (*(ft_strchr(temp, '$') + 1) == '?'
+				|| *(ft_strchr(temp, '$') + 1) == '$'))
+			special_expand(shell, temp, i);
+		else if (ft_strchr(temp, '$'))
 			expand_key(shell, temp, i);
-		else if (ft_strchr(temp, '$') && *(ft_strchr(temp, '$') + 1) == '?')
-			expand_dollar(shell, temp, i);
 		free(temp);
 	}
 }
