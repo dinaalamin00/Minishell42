@@ -6,66 +6,68 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/05 12:08:17 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 11:11:34 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_key(t_mshell *shell, char *temp, int i)
+void	expand_key(t_mshell *shell, char **str)
 {
 	char	*key;
 	char	*before;
 	t_param	*param;
+	char	*temp;
 
-	key = ft_strccpy(ft_strchr(temp, '$') + 1, "\"\'$ \t");
+	temp = *(str);
+	key = ft_strccpy(ft_strchr((temp), '$') + 1, "\"\'$ \t");
 	before = ft_strccpy(temp, "$");
 	param = get_param(shell->params, key);
 	if (param)
-		shell->tokens[i] = ft_strjoin(before, param->value);
+		*(str) = ft_strjoin(before, param->value);
 	else
 	{
-		shell->tokens[i] = ft_strdup(before);
+		*(str) = ft_strdup(before);
 		free(before);
 	}
 	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t"))
-		shell->tokens[i] = ft_strjoin(shell->tokens[i],
+		*(str) = ft_strjoin(*(str),
 				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$"));
 	free(key);
 }
 
-void	special_expand(t_mshell *shell, char *temp, int i)
+void	special_expand(int pipe_exit, char **str)
 {
 	char	*before;
 	char	*exit_status;
 	char	*start;
 
-	start = ft_strchr(temp, '$');
-	before = ft_strccpy(temp, "$");
+	start = ft_strchr(*(str), '$');
+	before = ft_strccpy(*(str), "$");
 	if (*(start + 1) == '?')
 	{
-		exit_status = ft_itoa(shell->pipe_exit);
-		shell->tokens[i] = ft_strjoin(before, exit_status);
-		shell->tokens[i] = ft_strjoin(shell->tokens[i], start + 2);
+		exit_status = ft_itoa(pipe_exit);
+		*(str) = ft_strjoin(before, exit_status);
+		*(str) = ft_strjoin(*(str), start + 2);
 		free(exit_status);
 	}
 	else
-		shell->tokens[i] = ft_strjoin(before, ft_strchr(temp, '$') + 2);
+		*(str) = ft_strjoin(before, ft_strchr(*(str), '$') + 2);
 }
 
-void	expand_token(t_mshell *shell, int i)
+void	expand_string(t_mshell *shell, char **str)
 {
 	char	*temp;
 
-	while (ft_strchr(shell->tokens[i], '$'))
+	while (ft_strchr(*(str), '$'))
 	{
-		temp = shell->tokens[i];
-		if (ft_strchr(temp, '$')
-			&& (*(ft_strchr(temp, '$') + 1) == '?'
-				|| *(ft_strchr(temp, '$') + 1) == '$'))
-			special_expand(shell, temp, i);
-		else if (ft_strchr(temp, '$'))
-			expand_key(shell, temp, i);
+		temp = *(str);
+		if (ft_strchr(*(str), '$')
+			&& (*(ft_strchr(*(str), '$') + 1) == '?'
+				|| *(ft_strchr(*(str), '$') + 1) == '$'))
+			special_expand(shell->pipe_exit, str);
+		else if (ft_strchr(*(str), '$'))
+			expand_key(shell, str);
 		free(temp);
 	}
 }
@@ -80,7 +82,7 @@ void	expand_params(t_mshell *shell)
 	{
 		quote = ft_strset(shell->tokens[i], "\'\"");
 		if (!quote || *quote != '\'')
-			expand_token(shell, i);
+			expand_string(shell, &(shell->tokens[i]));
 		i++;
 	}
 }
