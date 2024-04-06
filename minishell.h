@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/06 13:37:09 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void	split_by_space(t_mshell *shell);
 //parser
 void	parser(t_mshell *shell, char **env);
 void	expand_params(t_mshell *shell);
+void	expand_string(t_mshell *shell, char **str);
 void	parse_files(t_mshell *shell);
 void	join_quote(t_mshell *shell);
 void	clean_command(t_mshell *shell);
@@ -79,6 +80,7 @@ void	clean_command(t_mshell *shell);
 //executor
 void	executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
+
 //utils
 void	env_to_list(t_mshell *shell, char **env);
 t_param	*get_param(t_param *params, char *key);

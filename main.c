@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 12:05:20 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:04:41 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,9 @@ int	main(int argc, char **argv, char **envp)
 	ft_bzero(&shell, sizeof(shell));
 	while (1)
 	{
-		(&shell)->user_input = readline("$ ");
+		printf("\033[1;32m");
+		(&shell)->user_input = readline("minishell $ \033[0m");
+		printf("\033[0m");
 		input_len = ft_strlen(shell.user_input) + 1;
 		if (ft_strncmp(shell.user_input, "exit", 5) == 0)
 			break ;

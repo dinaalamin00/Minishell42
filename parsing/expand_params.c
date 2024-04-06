@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/06 11:11:34 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:06:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	expand_key(t_mshell *shell, char **str)
 	char	*temp;
 
 	temp = *(str);
-	key = ft_strccpy(ft_strchr((temp), '$') + 1, "\"\'$ \t");
+	key = ft_strccpy(ft_strchr((temp), '$') + 1, "\"\'$ \t\n");
 	before = ft_strccpy(temp, "$");
 	param = get_param(shell->params, key);
 	if (param)
@@ -30,9 +30,9 @@ void	expand_key(t_mshell *shell, char **str)
 		*(str) = ft_strdup(before);
 		free(before);
 	}
-	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t"))
+	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t\n"))
 		*(str) = ft_strjoin(*(str),
-				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$"));
+				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$\n"));
 	free(key);
 }
 

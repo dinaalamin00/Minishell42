@@ -6,28 +6,29 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/05 14:25:39 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 14:15:29 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	here_doc(char *name)
+static int	here_doc(t_mshell *shell, char *name)
 {
 	int		fd[2];
 	char	*line;
 	char	*delimiter;
 
 	if (pipe(fd) < 0)
-	{
-		ft_putendl_fd("Error creating pipe", 2);
-		return (-1);
-	}
-	// close(fd[0]);
+		return (ft_putendl_fd("Error creating pipe", 2), -1);
 	line = get_next_line(0);
-	delimiter = ft_str_join(name, "\n");
+	if (!is_quote(*name))
+		delimiter = ft_str_join(name, "\n");
+	else
+		delimiter = ft_strjoin(custom_trim(ft_strdup(name), *name, 0), "\n");
 	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
 	{
+		if (!is_quote(*name))
+			expand_string(shell, &line);
 		ft_putstr_fd(line, fd[1]);
 		free(line);
 		line = get_next_line(0);
@@ -48,16 +49,7 @@ static void	open_file(t_mshell *shell)
 		if (file->mode == RD)
 			file->fd = open(file->name, O_RDONLY, 0644);
 		else if (file->mode == HERE_DOC)
-		{
-			file->fd = here_doc(file->name);
-			char *line = get_next_line(file->fd);
-			while (line)
-			{
-				printf("line: %s", line);
-				free(line);
-				line = get_next_line(file->fd);
-			}
-		}
+			file->fd = here_doc(shell, file->name);
 		else if (file->mode == WR)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (file->mode == APPEND)
