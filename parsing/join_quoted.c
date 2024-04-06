@@ -6,48 +6,55 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 16:20:28 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/06 16:45:07 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static char	**join_to_last(char	**array, char *new_string)
-{
-	char	*temp;
-	char	*new_temp;
-	char	symbol;
-	char	*spaces;
-	int		i;
-
-	i = 0;
-	while (array[i + 1])
-		i++;
-	symbol = array[i][ft_strlen(array[i]) - 1];
-	new_temp = ft_strdup(new_string);
-	if (ft_strset(new_string, "\'\""))
-		new_temp = custom_trim(new_temp, *new_temp, 1);
-	array[i] = ft_strjoin(custom_trim(array[i], symbol, 2), new_temp);
-	if (ft_strset(new_string, "\'\""))
-	{
-		spaces = ft_strrset(array[i], "\'\"");
-		array[i] = custom_trim(temp, 32, 2);
-		array[i] = custom_trim(array[i], *spaces, 2);
-	}
-	close_quote(&array[i], symbol);
-	if (ft_strset(new_string, "\'\""))
-		array[i] = ft_strjoin(array[i], spaces + 1);
-	free(new_temp);
-	return (array);
-}
-
-static int	to_be_joined(char **array, char *new)
+static int	last_element(char **array)
 {
 	int	i;
 
 	i = 0;
 	while (array[i + 1])
 		i++;
+	return (i);
+}
+
+static char	**join_to_last(char	**array, char *new_string)
+{
+	char	*new_temp;
+	char	symbol;
+	char	*spaces;
+	int		i;
+
+	i = last_element(array);
+	symbol = 0;
+	if (ft_strset(array[i], "\'\""))
+		symbol = array[i][ft_strlen(array[i]) - 1];
+	new_temp = ft_strdup(new_string);
+	if (ft_strset(new_string, "\'\""))
+		new_temp = custom_trim(new_temp, *new_temp, 1);
+	array[i] = ft_strjoin(custom_trim(custom_trim(array[i], 32, 0), symbol, 0),
+			new_temp);
+	if (ft_strset(new_string, "\'\""))
+	{
+		spaces = ft_strrset(new_string, "\'\"");
+		array[i] = custom_trim(array[i], 32, 2);
+		array[i] = custom_trim(array[i], *spaces, 2);
+	}
+	close_quote(&array[i], new_string);
+	if (ft_strset(new_string, "\'\""))
+		array[i] = ft_strjoin(array[i], spaces + 1);
+	return (free(new_temp), array);
+}
+
+static int	to_be_joined(char **array, char *new)
+{
+	int	i;
+
+	i = last_element(array);
 	if (is_redirect(array[i][0]) || is_redirect(new[0]))
 		return (0);
 	if (ft_strset(array[i], "\'\""))

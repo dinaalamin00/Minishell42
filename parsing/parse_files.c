@@ -3,45 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:43:11 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 12:21:01 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:05:04 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	add_file(t_mshell *shell, int i)
+static char	*get_file(t_mshell *shell, int i, int *mode)
 {
-	int		mode;
 	char	*file_name;
 
 	if (shell->tokens[i][0] == '<')
 	{
 		if (shell->tokens[i][1] == '<')
-			mode = HERE_DOC;
+			*mode = HERE_DOC;
 		else if (shell->tokens[i][1] == '>')
-			mode = RDWR;
+			*mode = RDWR;
 		else if (!shell->tokens[i][1])
-			mode = RD;
+			*mode = RD;
 	}
 	else if (shell->tokens[i][0] == '>')
 	{
 		if (shell->tokens[i][1] == '>')
-			mode = APPEND;
+			*mode = APPEND;
 		else if (!shell->tokens[i][1])
-			mode = WR;
+			*mode = WR;
 	}
 	file_name = ft_strdup(shell->tokens[i + 1]);
-	if (ft_strset(file_name, "\'\""))
-		file_name = custom_trim(custom_trim(file_name, 32, 0), *file_name, 0);
-	flst_addback(&(shell->stdfile), file_name, mode);
+	return (file_name);
 }
 
 void	parse_files(t_mshell *shell)
 {
-	int	i;
+	int		i;
+	int		mode;
+	char	*file_name;
 
 	join_quote(shell);
 	i = 0;
@@ -49,7 +48,11 @@ void	parse_files(t_mshell *shell)
 	{
 		if (is_redirect(shell->tokens[i][0]))
 		{
-			add_file(shell, i);
+			file_name = get_file(shell, i, &mode);
+			file_name = custom_trim(file_name, 32, 0);
+			if (ft_strset(file_name, "\'\"") && mode != HERE_DOC)
+				file_name = custom_trim(file_name, *file_name, 0);
+			flst_addback(&(shell->stdfile), file_name, mode);
 			free(shell->tokens[i]);
 			shell->tokens[i] = ft_strdup("");
 			i++;

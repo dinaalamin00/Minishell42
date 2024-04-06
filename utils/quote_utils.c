@@ -6,28 +6,22 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:54:19 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:54:22 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/06 16:46:43 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	close_quote(char **str, char symbol)
+void	close_quote(char **str, char *next_str)
 {
 	char	*temp;
-	int		i;
 
-	temp = malloc (ft_strlen(*str) + 2);
-	if (!temp)
-		return ;
-	i = 0;
-	while ((*str)[i])
+	if (ft_strset(next_str, "\'\""))
 	{
-		temp[i] = (*str)[i];
-		i++;
+		temp = ft_strdup("\"");
+		temp = ft_strjoin(temp, *str);
+		temp = ft_strjoin(temp, "\"");
+		free(*str);
+		*str = temp;
 	}
-	temp[i++] = symbol;
-	temp[i] = '\0';
-	free(*str);
-	*str = temp;
 }

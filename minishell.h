@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 13:37:09 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:03:45 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
 char	*custom_trim(char *s1, char c, int pos);
-void	close_quote(char **str, char symbol);
+void	close_quote(char **str, char *next_str);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
 
