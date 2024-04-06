@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/06 10:09:28 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:14:51 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	parser(t_mshell *shell, char **env)
 	parse_files(shell);
 	clean_command(shell);
 	ft_free(shell->tokens);
-
 	display_command(shell->command);
 	display(shell->stdfile);
 }
