@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 12:14:06 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:14:28 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	execute_command(t_mshell *shell, char **env)
 		ft_echo(shell);
 	// else if (!ft_strncmp(shell->command[0], "env", 3))
 	// 	ft_env(shell, env);
-	// else if (!ft_strncmp(shell->command[0], "export", 3))
-	// 	ft_export(shell, env);
+	if (!ft_strncmp(shell->command[0], "export", 3))
+		ft_export(shell);
 	// else if (!ft_strncmp(shell->command[0], "unset", 3))
 	// 	ft_unset(shell, env);
 	// else

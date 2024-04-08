@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 13:12:18 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:57:26 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,6 @@ void	free_params(t_param *params)
 		free(params);
 		params = temp;
 	}
-}
-
-void	add_var(t_param **param, char *str)
-{
-	t_param	*node;
-	char	*assign;
-
-	node = malloc(sizeof(t_param));
-	// if (!node)
-	// 	return (NULL); // should we free the params list?
-	assign = ft_strchr(str, '=');
-	node->key = ft_strccpy(str, "=");
-	node->value = ft_strdup(assign + 1);
-	node->next = NULL;
-	node->next = *param;
-	*param = node;
 }
 
 void	env_to_list(t_mshell *shell, char **env)
