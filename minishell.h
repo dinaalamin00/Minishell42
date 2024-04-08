@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 12:15:15 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:13:23 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,8 @@ void	ft_echo(t_mshell *shell);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
+void	add_var(t_param **param, char *str);
 t_param	*get_param(t_param *params, char *key);
-void	add_var(t_param **param, char *key, char *value);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
 char	*custom_trim(char *s1, char c, int pos);

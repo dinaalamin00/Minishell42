@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/05 11:52:18 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 13:12:18 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ void	free_params(t_param *params)
 	}
 }
 
-void	add_var(t_param **param, char *key, char *value)
+void	add_var(t_param **param, char *str)
 {
 	t_param	*node;
+	char	*assign;
 
 	node = malloc(sizeof(t_param));
 	// if (!node)
 	// 	return (NULL); // should we free the params list?
-	node->key = key;
-	node->value = value;
+	assign = ft_strchr(str, '=');
+	node->key = ft_strccpy(str, "=");
+	node->value = ft_strdup(assign + 1);
 	node->next = NULL;
 	node->next = *param;
 	*param = node;
@@ -43,18 +45,12 @@ void	add_var(t_param **param, char *key, char *value)
 
 void	env_to_list(t_mshell *shell, char **env)
 {
-	char	*assign;
-	char	*key;
-	char	*value;
 	int		i;
 
 	i = 0;
 	while (env[i])
 	{
-		assign = ft_strchr(env[i], '=');
-		key = ft_strccpy(env[i], "=");
-		value = ft_strdup(assign + 1);
-		add_var(&(shell->params), key, value);
+		add_var(&(shell->params), env[i]);
 		i++;
 	}
 	i = 0;
