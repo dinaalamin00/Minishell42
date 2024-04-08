@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 15:14:55 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:46:53 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	open_dup(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 void	ft_echo(t_mshell *shell);
 void	ft_export(t_mshell *shell);
-
+void	ft_env(t_mshell *shell, int export);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
@@ -95,5 +95,6 @@ char	*custom_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char *next_str);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
+int		array_len(char	**array);
 
 #endif

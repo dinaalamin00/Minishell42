@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   append_array.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 13:54:31 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 15:45:42 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-static int	array_len(char	**array)
+int	array_len(char	**array)
 {
 	int	i;
 

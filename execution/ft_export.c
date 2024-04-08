@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 15:21:00 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:19:00 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,17 @@ void	add_var(t_param **param, char *str)
 
 	// if (!node)
 	// 	return (NULL); // should we free the params list?
-	assign = ft_strchr(str, '=');
 	key = ft_strccpy(str, "=");
+	assign = ft_strchr(str, '=');
 	if (assign)
 		value = ft_strdup(assign + 1);
+	else
+		value = NULL;
 	if (valid_key(key) && valid_value(value))
 	{
 		node = malloc(sizeof(t_param));
 		node->key = key;
 		node->value = value;
-		node->next = NULL;
 		node->next = *param;
 		*param = node;
 	}
@@ -79,4 +80,5 @@ void	ft_export(t_mshell *shell)
 		add_var(&(shell->params), shell->command[i]);
 		i++;
 	}
+	ft_free(shell->command);
 }
