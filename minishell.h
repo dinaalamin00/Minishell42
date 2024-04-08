@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 17:03:45 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 11:03:46 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,7 @@ void	clean_command(t_mshell *shell);
 //executor
 void	executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
+void	execute_command(t_mshell *shell, char **env);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
