@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 17:13:58 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 12:37:23 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 	while (1)
 	{
 		printf("\033[1;32m");
-		(&shell)->user_input = readline("minishell $ \033[0m");
+		shell.user_input = readline("minishell $ \033[0m");
 		input_len = ft_strlen(shell.user_input) + 1;
 		if (ft_strncmp(shell.user_input, "exit", 5) == 0)
 			break ;
