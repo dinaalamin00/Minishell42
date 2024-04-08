@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 14:35:24 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 17:23:50 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,14 @@ void	open_dup(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 void	ft_pwd(t_mshell *shell);
 void	ft_unset(t_mshell *shell);
+int		valid_key(char *key);
 void	ft_env(t_mshell *shell, int export);
+void	ft_cd(t_mshell *shell);
+void	execute_external(t_mshell *shell, char **env);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
 t_param	*get_param(t_param *params, char *key);
-void	add_var(t_param **param, char *key, char *value);
 void	del_var(t_param **param, char *key);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);

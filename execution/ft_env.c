@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:00:40 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 14:47:22 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 17:03:42 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	ft_env(t_mshell *shell, int export)
 			printf("declare -x %s", var->key);
 			if (var->value)
 				printf("=\"%s\"", var->value);
+			printf("\n");
 		}
 		var = var->next;
 	}

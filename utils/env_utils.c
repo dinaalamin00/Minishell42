@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 14:36:22 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/08 16:41:38 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ void	free_params(t_param *params)
 	}
 }
 
-void	add_var(t_param **param, char *key, char *value)
-{
-	t_param	*node;
+// void	add_var(t_param **param, char *key, char *value)
+// {
+// 	t_param	*node;
 
-	node = malloc(sizeof(t_param));
-	// if (!node)
-	// 	return (NULL); // should we free the params list?
-	node->key = key;
-	node->value = value;
-	node->next = NULL;
-	node->next = *param;
-	*param = node;
-}
+// 	node = malloc(sizeof(t_param));
+// 	// if (!node)
+// 	// 	return (NULL); // should we free the params list?
+// 	node->key = key;
+// 	node->value = value;
+// 	node->next = NULL;
+// 	node->next = *param;
+// 	*param = node;
+// }
 
 void	env_to_list(t_mshell *shell, char **env)
 {
@@ -54,7 +54,7 @@ void	env_to_list(t_mshell *shell, char **env)
 		assign = ft_strchr(env[i], '=');
 		key = ft_strccpy(env[i], "=");
 		value = ft_strdup(assign + 1);
-		add_var(&(shell->params), key, value);
+		add_var(&(shell->params), env[i]);
 		i++;
 	}
 	i = 0;
