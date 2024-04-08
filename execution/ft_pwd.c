@@ -1,31 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/04/08 10:48:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 13:44:07 by diahmed          ###   ########.fr       */
+/*   Created: 2024/04/08 11:21:59 by diahmed           #+#    #+#             */
+/*   Updated: 2024/04/08 16:57:41 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_shell(t_mshell *shell)
+void	ft_pwd(t_mshell *shell)
 {
-	(void)shell;
-	//free_param
-	//free_token
-	//free_command
-	//free_user_input
-	//free_files
-}
+	char	cwd[PATH_MAX];
 
-void    key_error(char *cmd, char *key)
-{
-    ft_putstr_fd(cmd, 2);
-    ft_putstr_fd(": `", 2);
-    ft_putstr_fd(key, 2);
-    ft_putstr_fd("\': not a valid identifier", 2);
+	if ((ft_strncmp(shell->command[0], "pwd", 4))
+		&& array_len(shell->command) > 1)
+	{
+        ft_putendl_fd("usage: pwd [-L | -P]", 2);
+        //free_shell
+        exit(EXIT_FAILURE);
+	}
+	if (getcwd(cwd, sizeof(cwd)))
+		printf("%s\n", cwd);
+	else
+		perror("PWD ERROR");
+    // exit(0);
 }

@@ -1,7 +1,8 @@
 SRC = main.c run_command.c GNL/get_next_line.c GNL/get_next_line_utils.c\
 	parsing/parser.c parsing/expand_params.c parsing/parse_files.c parsing/join_quoted.c parsing/clean_command.c\
 	lex/lexer.c lex/quote_validity.c lex/redirect_validity.c  lex/split_by_qoute.c lex/split_by_redirect.c lex/split_by_space.c\
-	execution/executor.c execution/duplicate_fds.c execution/execute_command.c execution/execute_external.c execution/ft_echo.c execution/ft_export.c execution/ft_env.c\
+	execution/executor.c execution/duplicate_fds.c execution/execute_command.c execution/execute_external.c\
+	execution/ft_echo.c execution/ft_export.c execution/ft_env.c execution/ft_pwd.c execution/ft_unset.c execution/ft_cd.c\
 	utils/append_array.c utils/env_utils.c utils/quote_utils.c utils/custom_trim.c utils/file_utils.c utils/errors.c
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror --fsanitize=address

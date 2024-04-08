@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 15:46:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:34:12 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,17 +84,27 @@ void	execute_command(t_mshell *shell, char **env);
 void	ft_echo(t_mshell *shell);
 void	ft_export(t_mshell *shell);
 void	ft_env(t_mshell *shell, int export);
+void	ft_pwd(t_mshell *shell);
+void	ft_unset(t_mshell *shell);
+void	ft_cd(t_mshell *shell);
+void	execute_external(t_mshell *shell, char **env);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
 void	add_var(t_param **param, char *str);
 t_param	*get_param(t_param *params, char *key);
+int		valid_key(char *key);
+void	del_var(t_param **param, char *key);
 void	free_params(t_param *params);
 char	**append_to_array(char	**array, char *new_string);
+int		array_len(char	**array);
 char	*custom_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char *next_str);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
+void	display_vars(t_param *param, int export);
 
+//error
+void    key_error(char *cmd, char *key);
 #endif
