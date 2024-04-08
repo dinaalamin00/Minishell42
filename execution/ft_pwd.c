@@ -1,44 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   append_array.c                                     :+:      :+:    :+:   */
+/*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 12:04:18 by diahmed          ###   ########.fr       */
+/*   Created: 2024/04/08 11:21:59 by diahmed           #+#    #+#             */
+/*   Updated: 2024/04/08 14:32:04 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	array_len(char	**array)
+void	ft_pwd(t_mshell *shell)
 {
-	int	i;
+	char	cwd[PATH_MAX];
 
-	i = 0;
-	while (array[i])
-		i++;
-	return (i);
-}
-
-char	**append_to_array(char	**array, char *new_string)
-{
-	char	**new_array;
-	int		i;
-
-	i = 0;
-	new_array = malloc ((array_len(array) + 2) * sizeof(char *));
-	if (!new_array)
-		return (NULL);
-	while (array[i])
+	if ((ft_strncmp(shell->command[0], "pwd", 4))
+        && array_len(shell->command) > 1)
 	{
-		new_array[i] = ft_strdup(array[i]);
-		i++;
+        ft_putendl_fd("usage: pwd [-L | -P]", 2);
+        //free_shell
+        exit(EXIT_FAILURE);
 	}
-	new_array[i] = new_string;
-	i++;
-	new_array[i] = NULL;
-	ft_free(array);
-	return (new_array);
+	if (getcwd(cwd, sizeof(cwd)))
+		printf("%s\n", cwd);
+	else
+		perror("PWD ERROR");
 }
