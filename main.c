@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 17:31:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:50:16 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	main(int argc, char **argv, char **envp)
 	pid_t		pid;
 	int			input_len;
 
-	ft_bzero(&shell, sizeof(shell));
+	ft_bzero(&shell, sizeof(t_mshell));
 	env_to_list(&shell, envp);
 	while (1)
 	{
@@ -32,8 +32,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!pid)
 			run_command(&shell, envp);
 		wait(NULL);
-		if (shell.user_input)
-			free(shell.user_input);
 	}
+	free(shell.user_input);
 	return (0);
 }

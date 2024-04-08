@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 17:36:31 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 18:32:35 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	execute_command(t_mshell *shell, char **env)
 	lower_cmd = ft_str_tolower(ft_strdup(shell->command[0]));
 	if (!ft_strncmp(lower_cmd, "pwd", 4))
 		ft_pwd(shell);
-	// else if (!ft_strncmp(shell->command[0], "cd", 3))
-	// 	ft_cd(shell, env);
+	else if (!ft_strncmp(shell->command[0], "cd", 3))
+		ft_cd(shell);
 	else if (!ft_strncmp(lower_cmd, "echo", 5))
 		ft_echo(shell);
 	else if (!ft_strncmp(shell->command[0], "export", 3))
@@ -34,4 +34,5 @@ void	execute_command(t_mshell *shell, char **env)
 		free(lower_cmd);
 		execute_external(shell, env);
 	}
+	// exit(0);
 }

@@ -1,0 +1,43 @@
+void	go_home(t_mshell *shell, char	*directory)
+{
+	t_param	*home;
+
+	home = get_param(shell->params, "HOME");
+	if (home)
+		directory = home->value;
+	else
+	{
+		ft_putendl_fd("cd: HOME not set", 2);
+		// ft_free(shell->command);
+		return ;
+	}
+}
+
+void	ft_cd(t_mshell *shell)
+{
+	char	*directory;
+	// char	pwd[PATH_MAX];
+	t_param	*home;
+
+	if (!shell->command[1])
+	{
+		home = get_param(shell->params, "HOME");
+		if (home)
+			directory = home->value;
+		else
+		{
+			ft_putendl_fd("cd: HOME not set", 2);
+			// ft_free(shell->command);
+			return ;
+		}
+	}
+	// else
+		directory = shell->command[1];
+	// getcwd(pwd, sizeof(pwd));
+	// add_var(&shell->params, ft_str_join("OLDPWD=", pwd));
+	if (chdir(directory) < 0)
+		perror("cd");
+	// getcwd(pwd, sizeof(pwd));
+	// add_var(&shell->params, ft_str_join("PWD=", directory));
+	// ft_free(shell->command);
+}

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 17:19:00 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:46:24 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	add_var(t_param **param, char *str)
 	else
 	{
 		free(key);
-		free(value);
+			free(value);
 		printf("not a valid key\n");
 	}
 }

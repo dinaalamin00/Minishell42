@@ -5,7 +5,7 @@ SRC = main.c run_command.c GNL/get_next_line.c GNL/get_next_line_utils.c\
 	execution/ft_echo.c execution/ft_export.c execution/ft_env.c execution/ft_pwd.c execution/ft_unset.c execution/ft_cd.c\
 	utils/append_array.c utils/env_utils.c utils/quote_utils.c utils/custom_trim.c utils/file_utils.c utils/errors.c
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror --fsanitize=address
+CFLAGS = -Wall -Wextra -Werror --fsanitize=address -g
 READLINE = -lreadline
 NAME = minishell
 LIBFT = libft/libft.a
