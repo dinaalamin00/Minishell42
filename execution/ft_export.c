@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/15 09:21:29 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/15 15:47:42 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,5 +91,4 @@ void	ft_export(t_mshell *shell)
 		add_var(&(shell->params), shell->command[i]);
 		i++;
 	}
-	ft_free(shell->command);
 }

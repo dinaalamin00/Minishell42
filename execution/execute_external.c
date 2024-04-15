@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 16:53:56 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/15 16:50:14 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,16 @@ char	*is_accessible(char *path, char *command)
 	char	*temp;
 	char	*exec;
 
-	if (!access(command, R_OK | X_OK))
+	if (!access(command, F_OK | X_OK))
 		return (command);
-	exec = NULL;
-	temp = exec;
-	exec = ft_strjoin(path, "/");
-	if (temp)
-		// free(temp);
-	temp = exec;
-	exec = ft_strjoin(exec, command);
-	// free(temp);
-	if (!access(exec, R_OK | X_OK))
+	// exec = NULL;
+	exec = ft_str_join(path, "/");
+	if (exec)
+		exec = ft_strjoin(exec, command);
+	if (!access(exec, F_OK | X_OK))
 		return (exec);
-	// free(exec);
+	if (exec)
+		free(exec);
 	return (NULL);
 }
 
@@ -43,21 +40,21 @@ void	execute_external(t_mshell *shell, char **env)
 	pid = fork();
 	if (pid == 0)
 	{
-		exec = NULL;
-		if (getenv("PATH"))
+		path = ft_split((get_param(shell->params, "PATH")->value), ':');
+		i = 0;
+		while (path && path[i])
 		{
-			path = ft_split (getenv("PATH"), ':');
-			i = 0;
-			while (path[i])
+			exec = is_accessible (path[i++], shell->command[0]);
+			if (exec)
 			{
-				exec = is_accessible (path[i++], shell->command[0]);
 				execve(exec, shell->command, env);
+				perror("execve");
+				exit (1); // replace by function to free and exit
 			}
-			ft_putstr_fd(shell->command[0], 2);
-			ft_putendl_fd(": command not found", 2);
-			// ft_free(path);
-			exit (1);
 		}
+		command_error(shell, NULL, ": command not found");
+		ft_free(path);
+		exit (1);
 	}
 	wait(NULL);
 }

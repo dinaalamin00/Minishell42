@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 18:32:35 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/15 16:53:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ void	execute_command(t_mshell *shell, char **env)
 		ft_env(shell, 0);
 	else if (!ft_strncmp(shell->command[0], "unset", 6))
 		ft_unset(shell);
-	else
-	{
-		free(lower_cmd);
+	else if (get_param(shell->params, "PATH"))
 		execute_external(shell, env);
-	}
-	// exit(0);
+	else
+		command_error(shell, NULL, ": No such file or directory");
+	ft_free(shell->command);
+	free(lower_cmd);
 }
