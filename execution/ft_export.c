@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 17:46:24 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/15 09:21:29 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,26 @@ int	valid_value(char *value)
 	return (1);
 }
 
+void	param_lstadd(t_param **param, char *key, char *value)
+{
+	t_param	*node;
+
+	node = get_param(*param, key);
+	if (!node)
+	{
+		node = malloc(sizeof(t_param));
+		node->key = key;
+		node->next = *param;
+		*param = node;
+	}
+	else if (node && node->value)
+	{
+		free(node->value);
+		node->value = NULL;
+	}
+	node->value = value;
+}
+
 void	add_var(t_param **param, char *str)
 {
 	t_param	*node;
@@ -42,8 +62,6 @@ void	add_var(t_param **param, char *str)
 	char	*key;
 	char	*value;
 
-	// if (!node)
-	// 	return (NULL); // should we free the params list?
 	key = ft_strccpy(str, "=");
 	assign = ft_strchr(str, '=');
 	if (assign)
@@ -51,21 +69,14 @@ void	add_var(t_param **param, char *str)
 	else
 		value = NULL;
 	if (valid_key(key) && valid_value(value))
-	{
-		node = malloc(sizeof(t_param));
-		node->key = key;
-		node->value = value;
-		node->next = *param;
-		*param = node;
-	}
+		param_lstadd(param, key, value);
 	else
 	{
 		free(key);
-			free(value);
+		free(value);
 		printf("not a valid key\n");
 	}
 }
-
 
 void	ft_export(t_mshell *shell)
 {
