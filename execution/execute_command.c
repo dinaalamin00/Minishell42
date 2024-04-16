@@ -33,6 +33,7 @@ void	execute_command(t_mshell *shell, char **env)
 		execute_external(shell, env);
 	else
 		command_error(shell, NULL, ": No such file or directory");
+	reset_fds(shell);
 	ft_free(shell->command);
 	free(lower_cmd);
 }

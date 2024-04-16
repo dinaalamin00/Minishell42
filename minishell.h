@@ -55,6 +55,8 @@ typedef struct s_mshell
 	t_param	*params;
 	int		here_doc_flag;
 	int		pipe_exit;
+	int		orig_stdin;
+	int		orig_stdout;
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
@@ -80,6 +82,7 @@ void	clean_command(t_mshell *shell);
 //executor
 void	executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
+void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 void	ft_echo(t_mshell *shell);
 void	ft_export(t_mshell *shell);
