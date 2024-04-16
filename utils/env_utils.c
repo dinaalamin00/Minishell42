@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 17:37:41 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:23:39 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	env_to_list(t_mshell *shell, char **env)
 	i = 0;
 	while (env[i])
 	{
-		add_var(&(shell->params), env[i]);
+		add_var(shell, env[i]);
 		i++;
 	}
 }

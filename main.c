@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 11:34:41 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:25:50 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@ int	main(int argc, char **argv, char **envp)
 		printf("\033[1;32m");
 		shell.user_input = readline("minishell $ \033[0m");
 		add_history(shell.user_input);
-		input_len = ft_strlen(shell.user_input) + 1;
-		if (ft_strncmp(shell.user_input, "exit", 5) == 0)
+		if (!shell.user_input || ft_strncmp(shell.user_input, "exit", 5) == 0)
 			break ;
 		run_command(&shell, envp);
 	}
-	free(shell.user_input);
+	free_shell(&shell, 1, 0); // it gives double free
 	return (0);
 }

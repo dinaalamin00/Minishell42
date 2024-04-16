@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:37:04 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 11:25:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:24:05 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	ft_cd(t_mshell *shell)
 		perror("cd");
 		return ;
 	}
-	add_var(&shell->params, ft_str_join("OLDPWD=", pwd));
-	add_var(&shell->params, ft_str_join("PWD=", getcwd(pwd, sizeof(pwd))));
+	add_var(shell, ft_str_join("OLDPWD=", pwd));
+	add_var(shell, ft_str_join("PWD=", getcwd(pwd, sizeof(pwd))));
 }

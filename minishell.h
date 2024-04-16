@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 11:37:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:22:57 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void	execute_external(t_mshell *shell, char **env);
 
 //utils
 void	env_to_list(t_mshell *shell, char **env);
-void	add_var(t_param **param, char *str);
+void	add_var(t_mshell *shell, char *str);
 t_param	*get_param(t_param *params, char *key);
 int		valid_key(char *key);
 void	del_var(t_param **param, char *key);
@@ -107,6 +107,6 @@ void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
 // void	display_vars(t_param *param, int export);
 
 //error
-void    key_error(char *cmd, char *key);
+void	key_error(char *cmd, char *key);
 void	command_error(t_mshell *shell, t_param	*path, char *message);
 #endif

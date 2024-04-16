@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 14:15:29 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 14:45:25 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,4 @@ void	open_dup(t_mshell *shell)
 	}
 	flst_clear(&shell->stdfile);
 }
+

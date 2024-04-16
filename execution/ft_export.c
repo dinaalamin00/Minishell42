@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/15 15:47:42 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 12:23:17 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	param_lstadd(t_param **param, char *key, char *value)
 	node->value = value;
 }
 
-void	add_var(t_param **param, char *str)
+void	add_var(t_mshell *shell, char *str)
 {
 	t_param	*node;
 	char	*assign;
@@ -68,8 +68,13 @@ void	add_var(t_param **param, char *str)
 		value = ft_strdup(assign + 1);
 	else
 		value = NULL;
+	if (!key)
+	{
+		free (value);
+		free_shell(shell, 0, -1);
+	}
 	if (valid_key(key) && valid_value(value))
-		param_lstadd(param, key, value);
+		param_lstadd(&(shell->params), key, value);
 	else
 	{
 		free(key);
@@ -88,7 +93,7 @@ void	ft_export(t_mshell *shell)
 		ft_env(shell, 1);
 	while (shell->command[i])
 	{
-		add_var(&(shell->params), shell->command[i]);
+		add_var(shell, shell->command[i]);
 		i++;
 	}
 }
