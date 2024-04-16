@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 12:22:57 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:33:24 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ void	executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
 void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
+void	ft_exit(t_mshell *shell);
 void	ft_echo(t_mshell *shell);
 void	ft_export(t_mshell *shell);
 void	ft_env(t_mshell *shell, int export);

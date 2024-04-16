@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 16:53:06 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:51:58 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,9 @@ void	execute_command(t_mshell *shell, char **env)
 	char	*lower_cmd;
 
 	lower_cmd = ft_str_tolower(ft_strdup(shell->command[0]));
-	if (!ft_strncmp(lower_cmd, "pwd", 4))
+	if (!ft_strncmp(shell->command[0], "exit", 5))
+		ft_exit(shell);
+	else if (!ft_strncmp(lower_cmd, "pwd", 4))
 		ft_pwd(shell);
 	else if (!ft_strncmp(shell->command[0], "cd", 3))
 		ft_cd(shell);
@@ -35,5 +37,6 @@ void	execute_command(t_mshell *shell, char **env)
 		command_error(shell, NULL, ": No such file or directory");
 	reset_fds(shell);
 	ft_free(shell->command);
+	shell->command = NULL;
 	free(lower_cmd);
 }

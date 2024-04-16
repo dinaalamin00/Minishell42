@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 12:25:50 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:53:05 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	main(int argc, char **argv, char **envp)
 			break ;
 		run_command(&shell, envp);
 	}
-	free_shell(&shell, 1, 0); // it gives double free
+	free_shell(&shell, 1, 0);
 	return (0);
 }

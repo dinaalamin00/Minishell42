@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:59:19 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/16 10:59:21 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:49:21 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	lexer(t_mshell *shell)
 	quote_validity(shell->user_input);
 	split_by_quote(shell);
 	free(shell->user_input);
+	shell->user_input = NULL;
 	split_by_redirect(shell);
 	split_by_space(shell);
 	redirect_validity(shell);
