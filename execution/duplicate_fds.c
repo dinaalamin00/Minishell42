@@ -85,3 +85,9 @@ void	open_dup(t_mshell *shell)
 	}
 	flst_clear(&shell->stdfile);
 }
+
+void	reset_fds(t_mshell *shell)
+{
+	dup2(orig_stdin, STDIN_FILENO);
+    dup2(orig_stdout, STDOUT_FILENO);
+}

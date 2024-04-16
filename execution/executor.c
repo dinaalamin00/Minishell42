@@ -14,6 +14,8 @@
 
 void	executor(t_mshell *shell, char **env)
 {
+	shell->orig_stdin = dup(STDIN_FILENO);
+	shell->orig_stdout = dup(STDOUT_FILENO);
 	open_dup(shell);
 	if (shell->command && shell->command[0])
 		execute_command(shell, env);
