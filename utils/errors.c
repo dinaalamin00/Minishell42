@@ -6,28 +6,34 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:48:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 16:50:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:19:47 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	free_shell(t_mshell *shell)
+void	free_shell(t_mshell *shell, int param_flag, int exit_flag)
 {
-	(void)shell;
-	//free_param
-	//free_token
-	//free_command
-	//free_user_input
-	//free_files
+	if (shell->user_input)
+		free(shell->user_input);
+	if (shell->tokens)
+		ft_free(shell->tokens);
+	if (shell->command)
+		ft_free(shell->command);
+	if (shell->params && param_flag)
+		free_params(shell->params);
+	if (shell->stdfile)
+		flst_clear(&(shell->stdfile));
+	if (exit_flag >= 0)
+		exit(exit_flag);
 }
 
-void    key_error(char *cmd, char *key)
+void	key_error(char *cmd, char *key)
 {
-    ft_putstr_fd(cmd, 2);
-    ft_putstr_fd(": `", 2);
-    ft_putstr_fd(key, 2);
-    ft_putstr_fd("\': not a valid identifier", 2);
+	ft_putstr_fd(cmd, 2);
+	ft_putstr_fd(": `", 2);
+	ft_putstr_fd(key, 2);
+	ft_putstr_fd("\': not a valid identifier", 2);
 }
 
 void	command_error(t_mshell *shell, t_param	*path, char *message)

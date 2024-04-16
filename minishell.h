@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 16:51:47 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/16 11:37:04 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	close_quote(char **str, char *next_str);
 void	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
+void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
 // void	display_vars(t_param *param, int export);
 
 //error
