@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:43:11 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 17:05:04 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:53:07 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,38 @@ void	parse_files(t_mshell *shell)
 		{
 			file_name = get_file(shell, i, &mode);
 			file_name = custom_trim(file_name, 32, 0);
+			if (!file_name)
+			{
+				ft_putendl_fd("Malloc error! Free up some space", 2);
+				free_shell(shell, 0, -1);
+				return ;
+			}
 			if (ft_strset(file_name, "\'\"") && mode != HERE_DOC)
 				file_name = custom_trim(file_name, *file_name, 0);
+			if (!file_name)
+			{
+				ft_putendl_fd("Malloc error! Free up some space", 2);
+				free_shell(shell, 0, -1);
+				return ;
+			}
 			flst_addback(&(shell->stdfile), file_name, mode);
 			free(shell->tokens[i]);
 			shell->tokens[i] = ft_strdup("");
+			if (!shell->tokens[i])
+			{
+				ft_putendl_fd("Malloc error! Free up some space", 2);
+				free_shell(shell, 0, -1);
+				return ;
+			}
 			i++;
 			free(shell->tokens[i]);
 			shell->tokens[i] = ft_strdup("");
+			if (!shell->tokens[i])
+			{
+				ft_putendl_fd("Malloc error! Free up some space", 2);
+				free_shell(shell, 0, -1);
+				return ;
+			}
 		}
 		i++;
 	}

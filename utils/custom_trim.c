@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   custom_trim.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 15:53:58 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 15:46:29 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:40:46 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*custom_trim(char *s1, char c, int pos)
 	int		j;
 	int		i;
 
+	if (!s1)
+		return (NULL);
 	if (c == 0)
 		return (s1);
 	i = 0;

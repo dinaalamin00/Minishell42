@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/16 12:23:39 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 11:02:58 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	free_params(t_param *params)
 
 void	env_to_list(t_mshell *shell, char **env)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	while (env[i])

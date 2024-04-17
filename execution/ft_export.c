@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/16 12:23:17 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 13:07:27 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	valid_value(char *value)
 	return (1);
 }
 
-void	param_lstadd(t_param **param, char *key, char *value)
+void	param_lstadd(t_mshell *shell, t_param **param, char *key, char *value)
 {
 	t_param	*node;
 
@@ -43,6 +43,13 @@ void	param_lstadd(t_param **param, char *key, char *value)
 	if (!node)
 	{
 		node = malloc(sizeof(t_param));
+		if (!node)
+		{
+			free(key);
+			if (value)
+				free(value);
+			free_shell(shell, 1, 1);
+		}
 		node->key = key;
 		node->next = *param;
 		*param = node;
@@ -63,22 +70,22 @@ void	add_var(t_mshell *shell, char *str)
 	char	*value;
 
 	key = ft_strccpy(str, "=");
+	if (!key)
+		free_shell(shell, 1, 1);
 	assign = ft_strchr(str, '=');
 	if (assign)
+	{
 		value = ft_strdup(assign + 1);
+		if (!value)
+			(free(key), free_shell(shell, 1, 1));
+	}
 	else
 		value = NULL;
-	if (!key)
-	{
-		free (value);
-		free_shell(shell, 0, -1);
-	}
 	if (valid_key(key) && valid_value(value))
-		param_lstadd(&(shell->params), key, value);
+		param_lstadd(shell, &(shell->params), key, value);
 	else
 	{
-		free(key);
-		free(value);
+		(free(key), free(value));
 		printf("not a valid key\n");
 	}
 }

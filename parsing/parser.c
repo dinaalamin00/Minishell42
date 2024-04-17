@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/16 15:49:51 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 18:56:35 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,14 @@ void	display_command(char **command)
 void	parser(t_mshell *shell, char **env)
 {
 	expand_params(shell);
+	if (!shell->tokens)
+		return ;
 	parse_files(shell);
+	if (!shell->tokens)
+		return ;
 	clean_command(shell);
+	if (!shell->command)
+		return ;
 	ft_free(shell->tokens);
 	shell->tokens = NULL;
 }

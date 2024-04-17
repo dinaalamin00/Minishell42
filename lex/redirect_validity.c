@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redirect_validity.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 18:36:33 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/17 18:23:40 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	redirect_validity(t_mshell *shell)
 				{
 					ft_putendl_fd("syntax error, unexpected token", 2);
 					ft_free(shell->tokens);
-					exit (EXIT_FAILURE);
+					return ;
 				}
 			}
 		}

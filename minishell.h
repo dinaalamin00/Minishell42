@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 15:33:24 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:06:53 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ typedef struct s_mshell
 	char	**tokens;
 	t_flist	*stdfile;
 	t_param	*params;
-	int		here_doc_flag;
 	int		pipe_exit;
 	int		orig_stdin;
 	int		orig_stdout;
@@ -63,7 +62,7 @@ void	run_command(t_mshell *shell, char **env);
 
 //lexer
 void	lexer(t_mshell *shell);
-void	quote_validity(char *user_input);
+void	quote_validity(t_mshell *shell);
 int		is_quote(char c);
 void	redirect_validity(t_mshell *shell);
 int		is_redirect(char c);
@@ -100,7 +99,7 @@ t_param	*get_param(t_param *params, char *key);
 int		valid_key(char *key);
 void	del_var(t_param **param, char *key);
 void	free_params(t_param *params);
-char	**append_to_array(char	**array, char *new_string);
+char	**append_to_array(t_mshell *shell, char	**array, char *new_string);
 int		array_len(char	**array);
 char	*custom_trim(char *s1, char c, int pos);
 void	close_quote(char **str, char *next_str);

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 16:50:14 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 19:33:54 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ void	execute_external(t_mshell *shell, char **env)
 	if (pid == 0)
 	{
 		path = ft_split((get_param(shell->params, "PATH")->value), ':');
+		if (!path)
+			free_shell(shell, 1, 1);
 		i = 0;
 		while (path && path[i])
 		{
@@ -48,13 +50,11 @@ void	execute_external(t_mshell *shell, char **env)
 			if (exec)
 			{
 				execve(exec, shell->command, env);
-				perror("execve");
-				exit (1); // replace by function to free and exit
+				(perror("execve"), exit (1)); // replace by function to free and exit
 			}
 		}
 		command_error(shell, NULL, ": command not found");
-		ft_free(path);
-		exit (1);
+		(ft_free(path), exit (1));
 	}
 	wait(NULL);
 }

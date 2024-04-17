@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:48:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/16 11:19:47 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/17 15:55:15 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,17 @@ void	free_shell(t_mshell *shell, int param_flag, int exit_flag)
 		ft_free(shell->tokens);
 	if (shell->command)
 		ft_free(shell->command);
-	if (shell->params && param_flag)
-		free_params(shell->params);
 	if (shell->stdfile)
 		flst_clear(&(shell->stdfile));
+	shell->user_input = NULL;
+	shell->tokens = NULL;
+	shell->command = NULL;
+	shell->stdfile = NULL;
+	if (shell->params && param_flag)
+	{
+		free_params(shell->params);
+		shell->params = NULL;
+	}
 	if (exit_flag >= 0)
 		exit(exit_flag);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_redirect.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:45:50 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 17:44:03 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/17 19:01:27 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,18 @@ char	*copy_symbols(char	*str)
 	return (dest);
 }
 
-char	**split_string(char **array, char *str)
+char	**split_string(t_mshell *shell, char **array, char *str)
 {
 	char	*temp;
 
 	while (str && *str)
 	{
 		if (!(*str == '<' || *str == '>'))
-			array = append_to_array(array, ft_strccpy(str, "<>"));
+			array = append_to_array(shell, array, ft_strccpy(str, "<>"));
 		str = ft_strset(str, "<>");
 		if (!str)
 			break ;
-		array = append_to_array(array, copy_symbols(str));
+		array = append_to_array(shell, array, copy_symbols(str));
 		temp = copy_symbols(str);
 		str = str + ft_strlen(temp);
 		free(temp);
@@ -60,7 +60,11 @@ void	split_by_redirect(t_mshell *shell)
 	i = 0;
 	new_tokens = malloc (1 * sizeof (char *));
 	if (!new_tokens)
+	{
+		ft_putendl_fd("Malloc error! Free up some space", 2);
+		free_shell(shell, 0, -1);
 		return ;
+	}
 	new_tokens[0] = NULL;
 	while (shell->tokens[i])
 	{
@@ -68,15 +72,20 @@ void	split_by_redirect(t_mshell *shell)
 		{
 			if (ft_strset(shell->tokens[i], "<>"))
 			{
-				new_tokens = split_string(new_tokens, shell->tokens[i++]);
+				new_tokens = split_string(shell, new_tokens, shell->tokens[i++]);
 				if (!new_tokens)
+				{
+					ft_putendl_fd("Malloc error! Free up some space", 2);
+					free_shell(shell, 0, -1);
 					return ;
+				}
 				continue ;
 			}
 		}
-		new_tokens = append_to_array(new_tokens,
+		new_tokens = append_to_array(shell, new_tokens,
 				ft_strdup(shell->tokens[i++]));
 	}
-	ft_free(shell->tokens);
+	if (shell->tokens)
+		ft_free(shell->tokens);
 	shell->tokens = new_tokens;
 }

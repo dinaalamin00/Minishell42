@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_qoute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 16:23:02 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/17 16:15:10 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,8 @@ void	split_by_quote(t_mshell *shell)
 	tokens = malloc((token_counter(shell->user_input) + 1) * sizeof(char *));
 	if (!tokens)
 	{
-		ft_putendl_fd("Error, malloc", 2);
-		free(shell->user_input);
-		exit (EXIT_FAILURE);
+		ft_putendl_fd("Malloc error! Free up some space", 2);
+		free_shell(shell, 0, -1);
 	}
 	i = 0;
 	j = 0;
@@ -99,7 +98,8 @@ void	split_by_quote(t_mshell *shell)
 		tokens[j] = copy_quoted_str(shell->user_input, &i);
 		if (!tokens[j])
 		{
-			ft_free(tokens);
+			ft_putendl_fd("Malloc error! Free up some space", 2);
+			free_shell(shell, 0, -1);
 			return ;
 		}
 		j++;
