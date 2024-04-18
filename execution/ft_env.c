@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:00:40 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 16:50:32 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:51:29 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_env(t_mshell *shell, int export)
 	t_param	*path;
 
 	path = get_param(shell->params, "PATH");
-	if (array_len(shell->command) > 1 || !path)
+	if (array_len(shell->command) > 1 || (!path && !export))
 	{
 		command_error(shell, path, ": No such file or directory");
 		return ;

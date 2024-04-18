@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 19:33:54 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/18 14:56:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ void	execute_external(t_mshell *shell, char **env)
 			if (exec)
 			{
 				execve(exec, shell->command, env);
-				(perror("execve"), exit (1)); // replace by function to free and exit
+				(perror("execve"), free_shell(shell, 1, 1));
 			}
 		}
 		command_error(shell, NULL, ": command not found");
-		(ft_free(path), exit (1));
+		(ft_free(path), free_shell(shell, 1, 1));
 	}
 	wait(NULL);
 }

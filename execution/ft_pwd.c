@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:21:59 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/15 15:39:50 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/18 13:49:53 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	ft_pwd(t_mshell *shell)
 		&& array_len(shell->command) > 1)
 	{
 		ft_putendl_fd("usage: pwd [without options]", 2);
-		//free_shell
 		return ;
 	}
 	if (getcwd(cwd, sizeof(cwd)))

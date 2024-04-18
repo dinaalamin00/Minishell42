@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 19:30:27 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/18 09:27:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,5 @@ void	execute_command(t_mshell *shell, char **env)
 		execute_external(shell, env);
 	else
 		command_error(shell, NULL, ": No such file or directory");
-	(reset_fds(shell), ft_free(shell->command), free(lower_cmd));
+	(reset_fds(shell), free_shell(shell, 0, -1), free(lower_cmd));
 }
