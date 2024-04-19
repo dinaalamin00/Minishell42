@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 18:48:52 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 14:47:51 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,9 @@ static char	**join_to_last(t_mshell *shell, char	**array, char *new_string)
 		spaces = ft_strrset(new_string, "\'\"");
 		array[i] = custom_trim(array[i], 32, 2);
 		array[i] = custom_trim(array[i], *spaces, 2);
-		if (!array[i])
-			return (free(new_temp), NULL);
 	}
-	close_quote(&array[i], new_string); // didn't do it
+	if (!array[i] || !close_quote(&array[i], new_string))
+		return (free(new_temp), NULL);
 	if (ft_strset(new_string, "\'\""))
 		array[i] = ft_strjoin(array[i], spaces + 1);
 	return (free(new_temp), array);
@@ -79,7 +78,7 @@ static int	to_be_joined(char **array, char *new)
 	return (0);
 }
 
-void	join_quote(t_mshell *shell)
+bool	join_quote(t_mshell *shell)
 {
 	char	**new_token;
 	int		i;
@@ -87,35 +86,23 @@ void	join_quote(t_mshell *shell)
 	i = 0;
 	new_token = malloc(1 * sizeof(char *));
 	if (!new_token)
-	{
-		ft_putendl_fd("Malloc error! Free up some space", 2);
-		free_shell(shell, 0, -1);
-		return ;
-	}
+		return (FAILURE);
 	new_token[0] = NULL;
 	while (shell->tokens[i])
 	{
-		new_token = append_to_array(shell, new_token, ft_strdup(shell->tokens[i]));
+		new_token = append_to_array(shell, new_token,
+				ft_strdup(shell->tokens[i]));
 		if (!new_token)
-		{
-			ft_putendl_fd("Malloc error! Free up some space", 2);
-			free_shell(shell, 0, -1);
-			return ;
-		}
+			return (FAILURE);
 		while (shell->tokens[i + 1]
 			&& to_be_joined(new_token, shell->tokens[i + 1]))
 		{
 			i++;
 			new_token = join_to_last(shell, new_token, shell->tokens[i]);
 			if (!new_token)
-			{
-				ft_putendl_fd("Malloc error! Free up some space", 2);
-				free_shell(shell, 0, -1);
-				return ;
-			}
+				return (FAILURE);
 		}
 		i++;
 	}
-	ft_free(shell->tokens);
-	shell->tokens = new_token;
+	return (ft_free(shell->tokens), shell->tokens = new_token, SUCCESS);
 }

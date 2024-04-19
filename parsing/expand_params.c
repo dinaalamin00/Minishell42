@@ -6,13 +6,13 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/17 18:32:16 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:03:40 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_key(t_mshell *shell, char **str, int *error)
+bool	expand_key(t_mshell *shell, char **str)
 {
 	char	*key;
 	char	*before;
@@ -21,22 +21,27 @@ void	expand_key(t_mshell *shell, char **str, int *error)
 
 	temp = *(str);
 	key = ft_strccpy(ft_strchr((temp), '$') + 1, "\"\'$ \t\n");
+	if (!key)
+		return (FAILURE);
 	before = ft_strccpy(temp, "$");
+	if (!before)
+		return (free(key), FAILURE);
 	param = get_param(shell->params, key);
 	if (param)
-		*(str) = ft_strjoin(before, param->value);
+		*(str) = ft_str_join(before, param->value);
 	else
-	{
 		*(str) = ft_strdup(before);
-		free(before);
-	}
+	if (!*(str))
+		return (free(key), free(before), FAILURE);
 	if (key && ft_strset(ft_strchr(temp, '$') + 1, "\"\' $\t\n"))
 		*(str) = ft_strjoin(*(str),
 				ft_strset(ft_strchr(temp, '$') + 1, "\"\' \t$\n"));
-	free(key);
+	if (!*(str))
+		return (free(key), free(before), FAILURE);
+	return (free(key), free(before), SUCCESS);
 }
 
-void	special_expand(int pipe_exit, char **str, int *error)
+bool	special_expand(int exit_code, char **str)
 {
 	char	*before;
 	char	*exit_status;
@@ -45,64 +50,52 @@ void	special_expand(int pipe_exit, char **str, int *error)
 	start = ft_strchr(*(str), '$');
 	before = ft_strccpy(*(str), "$");
 	if (!before)
-	{
-		*error = 1;
-		return ;
-	}
+		return (FAILURE);
 	if (*(start + 1) == '?')
 	{
-		exit_status = ft_itoa(pipe_exit);
+		exit_status = ft_itoa(exit_code);
 		*(str) = ft_strjoin(before, exit_status);
 		if (!*(str))
-		{
-			*error = 1;
-			return ;
-		}
-		free(exit_status);
+			return (free(before), free(exit_status), FAILURE);
 		*(str) = ft_strjoin(*(str), start + 2);
 		if (!*(str))
-		{
-			*error = 1;
-			return ;
-		}
+			return (free(before), free(exit_status), FAILURE);
 	}
 	else
 	{
 		*(str) = ft_strjoin(before, ft_strchr(*(str), '$') + 2);
 		if (!*(str))
-		{
-			*error = 1;
-			return ;
-		}
+			return (free(before), free(exit_status), FAILURE);
 	}
+	return (free(exit_status), SUCCESS);
 }
 
-void	expand_string(t_mshell *shell, char **str)
+bool	expand_string(t_mshell *shell, char **str)
 {
 	char	*temp;
 	int		error;
 
-	error = 0;
 	while (ft_strchr(*(str), '$'))
 	{
 		temp = *(str);
 		if (ft_strchr(*(str), '$')
 			&& (*(ft_strchr(*(str), '$') + 1) == '?'
 				|| *(ft_strchr(*(str), '$') + 1) == '$'))
-			special_expand(shell->pipe_exit, str, &error);
-		else if (ft_strchr(*(str), '$'))
-			expand_key(shell, str, &error);
-		free(temp);
-		if (error)
 		{
-			ft_putendl_fd("Malloc error! Free up some space", 2);
-			free_shell(shell, 0, -1);
-			return ;
+			if (!special_expand(shell->exit_code, str))
+				return (malloc_error(shell, 0, -1), FAILURE);
 		}
+		else if (ft_strchr(*(str), '$'))
+		{
+			if (!expand_key(shell, str))
+				return (malloc_error(shell, 0, -1), FAILURE);
+		}
+		free(temp);
 	}
+	return (SUCCESS);
 }
 
-void	expand_params(t_mshell *shell)
+bool	expand_params(t_mshell *shell)
 {
 	char	*quote;
 	int		i;
@@ -112,7 +105,11 @@ void	expand_params(t_mshell *shell)
 	{
 		quote = ft_strset(shell->tokens[i], "\'\"");
 		if (!quote || *quote != '\'')
-			expand_string(shell, &(shell->tokens[i]));
+		{
+			if (!expand_string(shell, &(shell->tokens[i])))
+				return (FAILURE);
+		}
 		i++;
 	}
+	return (SUCCESS);
 }

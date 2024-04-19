@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:15:48 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 19:07:05 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 15:19:48 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	valid_quotes(char *user_input)
 	return (1);
 }
 
-void	quote_validity(t_mshell *shell)
+bool	quote_validity(t_mshell *shell)
 {
 	if (ft_strset(shell->user_input, "\"\'"))
 	{
@@ -46,7 +46,8 @@ void	quote_validity(t_mshell *shell)
 		{
 			ft_putendl_fd("Error, unclosed quotes", 2);
 			free_shell(shell, 0, -1);
-			return ;
+			return (FAILURE);
 		}
 	}
+	return (SUCCESS);
 }

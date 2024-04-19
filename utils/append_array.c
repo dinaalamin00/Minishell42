@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 19:00:40 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:14:34 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,18 @@ char	**append_to_array(t_mshell *shell, char	**array, char *new_string)
 	int		i;
 
 	i = 0;
-	if (!new_string)
-	{
-		ft_putendl_fd("Malloc error! Free up some space", 2);
-		free_shell(shell, 0, -1);
-		return (NULL);
-	}
+	if (!new_string || !array)
+		return (malloc_error(shell, 0, -1), free(new_string), NULL);
 	new_array = malloc ((array_len(array) + 2) * sizeof(char *));
 	if (!new_array)
-	{
-		ft_putendl_fd("Malloc error! Free up some space", 2);
-		free_shell(shell, 0, -1);
-		return (NULL);
-	}
+		return (malloc_error(shell, 0, -1), free(new_string), NULL);
 	while (array[i])
 	{
 		new_array[i] = ft_strdup(array[i]);
 		if (!new_array[i])
 		{
-			ft_putendl_fd("Malloc error! Free up some space", 2);
 			ft_free(new_array);
-			free_shell(shell, 0, -1);
-			return (NULL);
+			return (malloc_error(shell, 0, -1), free(new_string), NULL);
 		}
 		i++;
 	}

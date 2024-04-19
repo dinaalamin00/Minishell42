@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:28:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/18 14:46:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:49:04 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ void	del_var(t_param **param, char *key)
 	while (next != NULL)
 	{
 		next = curr -> next;
-		if (!ft_strncmp(curr->key, key, ft_strlen(key) + 1))
+		if (!ft_strncmp(next->key, key, ft_strlen(key) + 1))
 		{
 			free(next->key);
 			free(next->value);
 			curr -> next = next->next;
 		}
-		curr = curr->next;
+		else
+			curr = curr->next;
 	}
 }
 

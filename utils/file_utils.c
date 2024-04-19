@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   file_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:46:53 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/01 15:34:18 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/19 14:51:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ t_flist	*flst_last(t_flist *lst)
 	return (node);
 }
 
-void	flst_addback(t_flist **lst, char *name, int mode)
+bool	flst_addback(t_flist **lst, char *name, int mode)
 {
 	t_flist	*temp;
 	t_flist	*new;
 
 	new = flst_new(name, mode);
 	if (!new)
-		return ;
+		return (free(name), FAILURE);
 	if (!*lst)
 		*lst = new;
 	else
@@ -54,6 +54,7 @@ void	flst_addback(t_flist **lst, char *name, int mode)
 		temp = flst_last(*lst);
 		temp -> next = new;
 	}
+	return (SUCCESS);
 }
 
 void	flst_clear(t_flist **lst)

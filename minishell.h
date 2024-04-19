@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/18 14:25:36 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:10:07 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@
 # define RDWR 3
 # define HERE_DOC 4
 
+# define SUCCESS 1
+# define FAILURE 0
+
 # include <stdio.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <signal.h>
@@ -53,7 +57,7 @@ typedef struct s_mshell
 	char	**tokens;
 	t_flist	*stdfile;
 	t_param	*params;
-	int		pipe_exit;
+	int		exit_code;
 	int		orig_stdin;
 	int		orig_stdout;
 }	t_mshell;
@@ -61,25 +65,25 @@ typedef struct s_mshell
 void	run_command(t_mshell *shell, char **env);
 
 //lexer
-void	lexer(t_mshell *shell);
-void	quote_validity(t_mshell *shell);
-int		is_quote(char c);
-void	redirect_validity(t_mshell *shell);
-int		is_redirect(char c);
-void	split_by_quote(t_mshell *shell);
-void	split_by_redirect(t_mshell *shell);
-void	split_by_space(t_mshell *shell);
+int		lexer(t_mshell *shell);
+bool	quote_validity(t_mshell *shell);
+bool	is_quote(char c);
+bool	redirect_validity(t_mshell *shell);
+bool	is_redirect(char c);
+bool	split_by_quote(t_mshell *shell);
+bool	split_by_redirect(t_mshell *shell);
+bool	split_by_space(t_mshell *shell);
 
 //parser
-void	parser(t_mshell *shell, char **env);
-void	expand_params(t_mshell *shell);
-void	expand_string(t_mshell *shell, char **str);
-void	parse_files(t_mshell *shell);
-void	join_quote(t_mshell *shell);
-void	clean_command(t_mshell *shell);
+int		parser(t_mshell *shell, char **env);
+bool	expand_params(t_mshell *shell);
+bool	expand_string(t_mshell *shell, char **str);
+bool	parse_files(t_mshell *shell);
+bool	join_quote(t_mshell *shell);
+bool	clean_command(t_mshell *shell);
 
 //executor
-void	executor(t_mshell *shell, char **env);
+int		executor(t_mshell *shell, char **env);
 void	open_dup(t_mshell *shell);
 void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
@@ -93,8 +97,10 @@ void	ft_cd(t_mshell *shell);
 void	execute_external(t_mshell *shell, char **env);
 
 //utils
-void	env_to_list(t_mshell *shell, char **env);
-void	add_var(t_mshell *shell, char *str);
+bool	env_to_list(t_mshell *shell, char **env);
+bool	add_var(t_mshell *shell, char *str);
+int		valid_key(char *key);
+int		valid_value(char *value);
 t_param	*get_param(t_param *params, char *key);
 int		valid_key(char *key);
 void	del_var(t_param **param, char *key);
@@ -102,14 +108,16 @@ void	free_params(t_param *params);
 char	**append_to_array(t_mshell *shell, char	**array, char *new_string);
 int		array_len(char	**array);
 char	*custom_trim(char *s1, char c, int pos);
-void	close_quote(char **str, char *next_str);
-void	flst_addback(t_flist **lst, char *name, int mode);
+bool	close_quote(char **str, char *next_str);
+bool	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
 void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
+int	is_alldigit(char *str);
 // void	display_vars(t_param *param, int export);
 
 //error
 void	key_error(char *cmd, char *key);
 void	command_error(t_mshell *shell, t_param	*path, char *message);
+void	malloc_error(t_mshell *shell,  int param_flag, int exit_flag);
 #endif
