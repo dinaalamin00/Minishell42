@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/17 19:09:31 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:23:30 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,10 @@ static void	open_file(t_mshell *shell)
 		else if (file->mode == RDWR)
 			file->fd = open(file->name, O_CREAT | O_RDWR, 0644);
 		if (file->fd < 0)
+		{
 			perror(file->name);
+			shell->exit_code = 1;
+		}
 		file = file->next;
 	}
 }
@@ -65,20 +68,20 @@ static void	open_file(t_mshell *shell)
 void	open_dup(t_mshell *shell)
 {
 	t_flist	*file;
+	int		dup_status;
 
 	open_file(shell);
 	file = shell->stdfile;
 	while (file)
 	{
 		if (file->mode == RD || file->mode == HERE_DOC)
-		{
-			if (dup2(file->fd, STDIN_FILENO) < 0)
-				perror("Error duplicating fd");
-		}
+			dup_status = dup2(file->fd, STDIN_FILENO);
 		else if (file->mode == 1 || file->mode == 2)
+			dup_status = dup2(file->fd, STDOUT_FILENO);
+		if (file->fd >= 0 && dup_status < 0)
 		{
-			if (dup2(file->fd, STDOUT_FILENO) < 0)
-				perror("Error duplicating fd");
+			perror("Error duplicating fd");
+			shell->exit_code = 1;
 		}
 		close (file->fd);
 		file = file->next;

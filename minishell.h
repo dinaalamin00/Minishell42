@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 18:10:07 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:16:09 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ bool	flst_addback(t_flist **lst, char *name, int mode);
 void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
 void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
-int	is_alldigit(char *str);
+int		is_alldigit(char *str);
 // void	display_vars(t_param *param, int export);
 
 //error

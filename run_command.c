@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:33:14 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 16:02:02 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:22:03 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,19 @@
 
 void	run_command(t_mshell *shell, char **env)
 {
-	lexer(shell);
-	parser(shell, env);
+	int	exit;
+
+	exit = lexer(shell);
+	if (exit == EXIT_FAILURE)
+	{
+		shell->exit_code = exit;
+		return ;
+	}
+	exit = parser(shell, env);
+	if (exit == EXIT_FAILURE)
+	{
+		shell->exit_code = exit;
+		return ;
+	}
 	executor(shell, env);
-	// if (lexer(shell))
-	// {
-	// 	if (parser(shell, env))
-	// 		shell->exit_code = executor(shell, env);
-	// 	else
-	// 		shell->exit_code = 1;
-	// }
-	// else
-	// 	shell->exit_code = 1;
 }
