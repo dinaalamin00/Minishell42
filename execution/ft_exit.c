@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:02:51 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 18:17:24 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 11:52:38 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	is_alldigit(char *str)
 	return (1);
 }
 
-void	ft_exit(t_mshell *shell)
+int	ft_exit(t_mshell *shell)
 {
 	int	exit_code;
 
@@ -36,7 +36,7 @@ void	ft_exit(t_mshell *shell)
 			command_error(shell, NULL, ": too many arguments");
 		else
 			command_error(shell, NULL, ": numeric argument required");
-		return ;
+		return (1);
 	}
 	else if (shell->command[1])
 	{
@@ -49,4 +49,5 @@ void	ft_exit(t_mshell *shell)
 		}
 	}
 	free_shell(shell, 1, exit_code);
+	return (0);
 }

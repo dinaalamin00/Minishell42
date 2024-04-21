@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 19:23:30 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 12:47:54 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static int	here_doc(t_mshell *shell, char *name)
 	return (fd[0]);
 }
 
-static void	open_file(t_mshell *shell)
+static void	open_file(t_mshell *shell, int *error)
 {
 	t_flist	*file;
 
@@ -60,17 +60,20 @@ static void	open_file(t_mshell *shell)
 		{
 			perror(file->name);
 			shell->exit_code = 1;
+			*error = 1;
 		}
 		file = file->next;
 	}
 }
 
-void	open_dup(t_mshell *shell)
+bool	open_dup(t_mshell *shell)
 {
 	t_flist	*file;
 	int		dup_status;
+	int		error;
 
-	open_file(shell);
+	error = 0;
+	open_file(shell, &error);
 	file = shell->stdfile;
 	while (file)
 	{
@@ -82,11 +85,14 @@ void	open_dup(t_mshell *shell)
 		{
 			perror("Error duplicating fd");
 			shell->exit_code = 1;
+			error = 1;
 		}
 		close (file->fd);
 		file = file->next;
 	}
-	flst_clear(&shell->stdfile);
+	if (error)
+		return (flst_clear(&shell->stdfile), FAILURE);
+	return (flst_clear(&shell->stdfile), SUCCESS);
 }
 
 void	reset_fds(t_mshell *shell)

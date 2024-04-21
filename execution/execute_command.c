@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/18 09:27:06 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/19 19:32:07 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	execute_command(t_mshell *shell, char **env)
 	if (!lower_cmd)
 		lower_cmd = shell->command[0];
 	if (!ft_strncmp(shell->command[0], "exit", 5))
-		ft_exit(shell);
+		shell->exit_code = ft_exit(shell);
 	else if (!ft_strncmp(lower_cmd, "pwd", 4))
 		ft_pwd(shell);
 	else if (!ft_strncmp(shell->command[0], "cd", 3))
