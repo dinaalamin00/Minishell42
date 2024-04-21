@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 09:28:29 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:34:53 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,19 +35,21 @@ int	valid_value(char *value)
 	return (1);
 }
 
-void	ft_export(t_mshell *shell)
+int	ft_export(t_mshell *shell)
 {
 	int		i;
 	char	*env_var;
+	int		exit_code;
 
 	i = 1;
+	exit_code = 0;
 	if (!shell->command[i])
 		ft_env(shell, 1);
 	while (shell->command[i])
 	{
-		add_var(shell, shell->command[i]);
-		if (!shell->command)
-			return ;
+		if (!add_var(shell, shell->command[i]))
+			exit_code = 1;
 		i++;
 	}
+	return (exit_code);
 }

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 12:36:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:00:16 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,13 +88,13 @@ bool	open_dup(t_mshell *shell);
 void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 int		ft_exit(t_mshell *shell);
-void	ft_echo(t_mshell *shell);
-void	ft_export(t_mshell *shell);
-void	ft_env(t_mshell *shell, int export);
-void	ft_pwd(t_mshell *shell);
-void	ft_unset(t_mshell *shell);
-void	ft_cd(t_mshell *shell);
-void	execute_external(t_mshell *shell, char **env);
+int		ft_pwd(t_mshell *shell);
+int		ft_cd(t_mshell *shell);
+int		ft_echo(t_mshell *shell);
+int		ft_export(t_mshell *shell);
+int		ft_env(t_mshell *shell, int export);
+int		ft_unset(t_mshell *shell);
+int		execute_external(t_mshell *shell, char **env);
 
 //utils
 bool	env_to_list(t_mshell *shell, char **env);
@@ -118,6 +118,6 @@ int		is_alldigit(char *str);
 
 //error
 void	key_error(char *cmd, char *key);
-void	command_error(t_mshell *shell, t_param	*path, char *message);
+int		command_error(t_mshell *shell, t_param	*path, char *message, int code);
 void	malloc_error(t_mshell *shell,  int param_flag, int exit_flag);
 #endif

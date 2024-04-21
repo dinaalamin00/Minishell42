@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 17:55:16 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:49:58 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ bool	add_var(t_mshell *shell, char *str)
 	else
 	{
 		(free(key), free(value));
-		return (free_shell(shell, 1, -1), FAILURE);
+		return (FAILURE);
 	}
 }
 

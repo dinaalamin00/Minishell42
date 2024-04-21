@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 15:56:34 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:17:31 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ char	*is_accessible(char *path, char *command)
 
 	if (!access(command, F_OK | X_OK))
 		return (command);
-	// exec = NULL;
 	exec = ft_str_join(path, "/");
 	if (exec)
 		exec = ft_strjoin(exec, command);
+	else
+		return (NULL);
 	if (!access(exec, F_OK | X_OK))
 		return (exec);
 	if (exec)
@@ -30,7 +31,7 @@ char	*is_accessible(char *path, char *command)
 	return (NULL);
 }
 
-void	execute_external(t_mshell *shell, char **env)
+int	execute_external(t_mshell *shell, char **env)
 {
 	pid_t	pid;
 	int		i;
@@ -53,8 +54,8 @@ void	execute_external(t_mshell *shell, char **env)
 				(perror("execve"), free_shell(shell, 1, 1));
 			}
 		}
-		command_error(shell, NULL, ": command not found");
+		command_error(shell, NULL, ": command not found", 1);
 		(ft_free(path), free_shell(shell, 1, 1));
 	}
-	wait(NULL);
+	return (wait(NULL), 1);
 }

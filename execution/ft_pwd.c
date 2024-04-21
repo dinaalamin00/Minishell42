@@ -6,13 +6,13 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:21:59 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/18 13:49:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:18:11 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pwd(t_mshell *shell)
+int	ft_pwd(t_mshell *shell)
 {
 	char	cwd[PATH_MAX];
 
@@ -20,10 +20,11 @@ void	ft_pwd(t_mshell *shell)
 		&& array_len(shell->command) > 1)
 	{
 		ft_putendl_fd("usage: pwd [without options]", 2);
-		return ;
+		return (1);
 	}
 	if (getcwd(cwd, sizeof(cwd)))
 		printf("%s\n", cwd);
 	else
-		perror("PWD ERROR");
+		return (perror("PWD ERROR"), 1);
+	return (0);
 }

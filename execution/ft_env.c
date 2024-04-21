@@ -6,23 +6,20 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:00:40 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/18 14:51:29 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:01:52 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_env(t_mshell *shell, int export)
+int	ft_env(t_mshell *shell, int export)
 {
 	t_param	*var;
 	t_param	*path;
 
 	path = get_param(shell->params, "PATH");
 	if (array_len(shell->command) > 1 || (!path && !export))
-	{
-		command_error(shell, path, ": No such file or directory");
-		return ;
-	}
+		return (command_error(shell, path, ": No such file or directory", 127));
 	var = shell->params;
 	while (var)
 	{
@@ -37,4 +34,5 @@ void	ft_env(t_mshell *shell, int export)
 		}
 		var = var->next;
 	}
+	return (0);
 }

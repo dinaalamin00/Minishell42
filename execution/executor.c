@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:59:59 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/21 12:36:18 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:11:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	executor(t_mshell *shell, char **env)
 		return (reset_fds(shell), 1);
 	if (shell->command && shell->command[0])
 		execute_command(shell, env);
-	return (0);
+	return (reset_fds(shell), 0);
 }

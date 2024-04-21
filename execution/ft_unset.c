@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:28:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 17:49:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:41:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,23 @@ void	del_var(t_param **param, char *key)
 	}
 }
 
-void	ft_unset(t_mshell *shell)
+int	ft_unset(t_mshell *shell)
 {
 	int	i;
+	int	exit_code;
 
 	i = 1;
+	exit_code = 0;
 	while (shell->command[i])
 	{
 		if (!valid_key(shell->command[i]) || ft_strchr(shell->command[i], '='))
+		{
 			key_error("unset", shell->command[i]);
+			exit_code = 1;
+		}
 		else
 			del_var(&shell->params, shell->command[i]);
 		i++;
 	}
+	return (exit_code);
 }
