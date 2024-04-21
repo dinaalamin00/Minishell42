@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 13:34:01 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:46:19 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ static char	*copy_quoted_str(char *user_input, int *i)
 {
 	int		start;
 	char	symbol;
-	char	*token;
 
 	start = *i;
 	while (user_input[*i] == 32)
@@ -39,16 +38,14 @@ static char	*copy_quoted_str(char *user_input, int *i)
 	}
 	else
 	{
-		while (!is_quote(user_input[*i])
-			&& user_input[*i])
+		while (!is_quote(user_input[*i]) && user_input[*i])
 		{
 			if (user_input[*i] == 32 && is_quote(user_input[*i + 1]))
 				break ;
 			(*i)++;
 		}
 	}
-	token = ft_substr(user_input, start, (*i) - start);
-	return (token);
+	return (ft_substr(user_input, start, (*i) - start));
 }
 
 static int	token_counter(char *user_input)

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/16 15:02:51 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/21 15:04:11 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:52:49 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_exit(t_mshell *shell)
 			command_error(shell, NULL, ": numeric argument required", 1);
 		return (EXIT_FAILURE);
 	}
-	else if (shell->command[1])
+	else if (shell->command && shell->command[1])
 	{
 		if (is_alldigit(shell->command[1]))
 			exit_code = ft_atoi(shell->command[1]);

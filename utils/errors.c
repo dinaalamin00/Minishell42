@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:48:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 15:00:58 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 16:05:13 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,10 @@ void	free_shell(t_mshell *shell, int param_flag, int exit_flag)
 		shell->params = NULL;
 	}
 	if (exit_flag >= 0)
+	{
+		rl_clear_history();
 		exit(exit_flag);
+	}
 }
 
 void	key_error(char *cmd, char *key)

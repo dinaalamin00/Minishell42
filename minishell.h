@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 15:00:16 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:50:03 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h"
-# include "GNL/get_next_line.h"
+# include "gnl/get_next_line.h"
 
 typedef struct s_flist
 {
@@ -63,7 +63,7 @@ typedef struct s_mshell
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
-
+void	check_signal();
 //lexer
 int		lexer(t_mshell *shell);
 bool	quote_validity(t_mshell *shell);
@@ -114,7 +114,6 @@ void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
 void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
 int		is_alldigit(char *str);
-// void	display_vars(t_param *param, int export);
 
 //error
 void	key_error(char *cmd, char *key);

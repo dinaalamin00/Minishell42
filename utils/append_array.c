@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 13:14:34 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:52:05 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	array_len(char	**array)
 {
 	int	i;
 
+	if (!array || !*array)
+		return (0);
 	i = 0;
 	while (array[i])
 		i++;

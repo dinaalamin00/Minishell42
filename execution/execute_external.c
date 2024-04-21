@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 15:17:31 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 17:07:29 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*is_accessible(char *path, char *command)
 	char	*temp;
 	char	*exec;
 
-	if (!access(command, F_OK | X_OK))
+	if (!access(command, X_OK))
 		return (command);
 	exec = ft_str_join(path, "/");
 	if (exec)
@@ -41,9 +41,9 @@ int	execute_external(t_mshell *shell, char **env)
 	pid = fork();
 	if (pid == 0)
 	{
+		if (!access(shell->command[0], X_OK))
+			execve(shell->command[0], shell->command, env);
 		path = ft_split((get_param(shell->params, "PATH")->value), ':');
-		if (!path)
-			free_shell(shell, 1, 1);
 		i = 0;
 		while (path && path[i])
 		{
