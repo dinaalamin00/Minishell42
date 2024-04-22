@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/22 13:06:48 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:42:04 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,22 @@ int	execute_external(t_mshell *shell, char **env)
 			exec = is_accessible (path[i++], shell->command[0]);
 			if (exec)
 			{
-				execve(exec, shell->command, env);
-				(perror("execve"), free_shell(shell, 1, 1));
+				if (execve(exec, shell->command, env) < 0)
+					perror("Execve");
+				// (perror("execve"), free_shell(shell, 1, 1));
 			}
 		}
-		command_error(shell, NULL, ": command not found", 127);
-		(ft_free(path), free_shell(shell, 1, 1));
+		if (!path || !path[0])
+			command_error(shell, NULL, ": No such file or directory", 127);
+		else
+			command_error(shell, NULL, ": command not found", 127);
+		(ft_free(path), free_shell(shell, 1, 127));
 	}
-	return (wait(NULL), 1);
+	else
+	{
+		waitpid(pid, &shell->exit_code, 0);
+		shell->exit_code = WEXITSTATUS(shell->exit_code);
+	}
+	return (1);
 }
 //error msg for null path "no such file or directory"
