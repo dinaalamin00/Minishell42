@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:48:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 16:05:13 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:58:28 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,6 @@ int	command_error(t_mshell *shell, t_param	*path, char *message, int code)
 void	malloc_error(t_mshell *shell, int param_flag, int exit_flag)
 {
 	if (errno == ENOMEM)
-		perror("Error: ");
+		perror(NULL);
 	free_shell(shell, param_flag, exit_flag);
 }

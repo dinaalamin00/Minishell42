@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 15:37:04 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 14:29:07 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:17:26 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,3 +37,4 @@ int	ft_cd(t_mshell *shell)
 		return (malloc_error(shell, 0, -1), 1);
 	return (0);
 }
+// FREE STRING WHEN ADD VAR FAILS

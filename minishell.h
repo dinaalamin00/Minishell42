@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 15:50:03 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 11:26:30 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct s_mshell
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
-void	check_signal();
+void	check_signal(t_mshell *Shell);
 //lexer
 int		lexer(t_mshell *shell);
 bool	quote_validity(t_mshell *shell);

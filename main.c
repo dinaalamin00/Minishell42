@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 15:52:26 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:51:45 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,8 @@ int	main(int argc, char **argv, char **envp)
 	int			input_len;
 
 	ft_bzero(&shell, sizeof(t_mshell));
-	if (!env_to_list(&shell, envp))
-		return (1);
-	check_signal();
+	env_to_list(&shell, envp);
+	check_signal(&shell);
 	while (1)
 	{
 		printf("\033[1;32m");

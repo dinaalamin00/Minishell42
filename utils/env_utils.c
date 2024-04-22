@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/21 14:49:58 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 12:51:51 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ bool	add_var(t_mshell *shell, char *str)
 
 	key = ft_strccpy(str, "=");
 	if (!key)
-		return (malloc_error(shell, 1, -1), FAILURE);
+		return (FAILURE);
 	assign = ft_strchr(str, '=');
 	if (assign)
 	{
 		value = ft_strdup(assign + 1);
 		if (!value)
-			return (free(key), malloc_error(shell, 1, -1), FAILURE);
+			return (free(key), FAILURE);
 	}
 	else
 		value = NULL;
@@ -91,7 +91,7 @@ bool	env_to_list(t_mshell *shell, char **env)
 	while (env && env[i])
 	{
 		if (!add_var(shell, env[i]))
-			return (FAILURE);
+			return (malloc_error(shell, 1, -1), FAILURE);
 		i++;
 	}
 	return (SUCCESS);
