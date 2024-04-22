@@ -6,38 +6,40 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:28:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 14:41:06 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/22 09:11:01 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	del_var(t_param **param, char *key)
+static t_param	*get_before(t_param *params, t_param *node)
 {
-	t_param	*curr;
-	t_param	*next;
+	t_param	*before;
 
-	curr = *param;
-	next = curr -> next;
-	if (!ft_strncmp(curr->key, key, ft_strlen(key) + 1))
-	{
-		free(curr->key);
-		free(curr->value);
-		*param = next;
+	before = params;
+	while (before->next && before->next != node)
+		before = before->next;
+	return (before);
+}
+
+void	del_var(t_param **params, char *key)
+{
+	t_param	*node;
+	t_param	*before_node;
+
+	node = get_param(*params, key);
+	if (!node)
 		return ;
-	}
-	while (next != NULL)
+	if (*params == node)
+		*params = node->next;
+	else
 	{
-		next = curr -> next;
-		if (!ft_strncmp(next->key, key, ft_strlen(key) + 1))
-		{
-			free(next->key);
-			free(next->value);
-			curr -> next = next->next;
-		}
-		else
-			curr = curr->next;
+		before_node = get_before(*params, node);
+		before_node->next = node->next;
 	}
+	free(node->key);
+	free(node->value);
+	free(node);
 }
 
 int	ft_unset(t_mshell *shell)
