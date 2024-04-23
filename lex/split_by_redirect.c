@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:45:50 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 12:11:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:05:36 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,5 @@ bool	split_by_redirect(t_mshell *shell)
 			return (malloc_error(shell, 0, -1), FAILURE);
 	}
 	ft_free(shell->tokens);
-	shell->tokens = new_tokens;
-	return (SUCCESS);
+	return (shell->tokens = new_tokens, SUCCESS);
 }

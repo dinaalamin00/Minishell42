@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 15:26:08 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:06:31 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	parser(t_mshell *shell, char **env)
 		return (EXIT_FAILURE);
 	if (!clean_command(shell))
 		return (EXIT_FAILURE);
-	// ft_free(shell->tokens);
-	// shell->tokens = NULL;
+	ft_free(shell->tokens);
+	shell->tokens = NULL;
 	return (EXIT_SUCCESS);
 }

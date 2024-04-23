@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/22 17:18:15 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/23 13:04:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,5 +119,5 @@ int		is_alldigit(char *str);
 //error
 void	key_error(char *cmd, char *key);
 int		command_error(t_mshell *shell, t_param	*path, char *message, int code);
-void	malloc_error(t_mshell *shell,  int param_flag, int exit_flag);
+void	malloc_error(t_mshell *shell, int param_flag, int exit_flag);
 #endif
