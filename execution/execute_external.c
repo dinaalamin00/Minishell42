@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/23 12:55:00 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/23 12:57:20 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ char	**get_path(t_mshell *shell, char **env)
 		return (ft_split((path->value), ':'));
 	else
 	{
-		command_error(shell, NULL, ": No such file or directory", 127);
+		shell->exit_code = command_error(shell,
+				NULL, ": No such file or directory", 127);
 		free_shell(shell, 1, shell->exit_code);
 	}
 	return (NULL);
