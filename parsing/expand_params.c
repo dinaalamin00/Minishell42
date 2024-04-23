@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 16:03:40 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:25:00 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,9 +51,9 @@ bool	special_expand(int exit_code, char **str)
 	before = ft_strccpy(*(str), "$");
 	if (!before)
 		return (FAILURE);
+	exit_status = ft_itoa(exit_code);
 	if (*(start + 1) == '?')
 	{
-		exit_status = ft_itoa(exit_code);
 		*(str) = ft_strjoin(before, exit_status);
 		if (!*(str))
 			return (free(before), free(exit_status), FAILURE);
@@ -65,7 +65,7 @@ bool	special_expand(int exit_code, char **str)
 	{
 		*(str) = ft_strjoin(before, ft_strchr(*(str), '$') + 2);
 		if (!*(str))
-			return (free(before), free(exit_status), FAILURE);
+			return (free(exit_status), free(before), FAILURE);
 	}
 	return (free(exit_status), SUCCESS);
 }
