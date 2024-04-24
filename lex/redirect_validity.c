@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 09:55:10 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:50:20 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ bool	redirect_validity(t_mshell *shell)
 				{
 					ft_putendl_fd("syntax error, unexpected token", 2);
 					ft_free(shell->tokens);
+					shell->tokens = NULL;
 					return (FAILURE);
 				}
 			}

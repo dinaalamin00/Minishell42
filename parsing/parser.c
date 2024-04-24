@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/24 09:52:51 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 14:27:14 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,33 @@ void	display_command(char **command)
 	printf("\n");
 }
 
+bool token_remainder(char **tokens)
+{
+	int	i;
+
+	i = 0;
+	while (tokens[i])
+	{
+		if (*tokens[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 int	parser(t_mshell *shell)
 {
 	if (!expand_params(shell))
 		return (EXIT_FAILURE);
+	if (!redirect_validity(shell))
+		return (EXIT_FAILURE);
 	if (!parse_files(shell))
 		return (EXIT_FAILURE);
-	if (!clean_command(shell))
-		return (EXIT_FAILURE);
+	if (token_remainder(shell->tokens))
+	{
+		if (!clean_command(shell))
+			return (EXIT_FAILURE);
+	}
 	ft_free(shell->tokens);
 	shell->tokens = NULL;
 	return (EXIT_SUCCESS);

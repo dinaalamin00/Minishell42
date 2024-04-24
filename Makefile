@@ -6,7 +6,7 @@ SRC = main.c run_command.c gnl/get_next_line.c gnl/get_next_line_utils.c signals
 	utils/append_array.c utils/env_utils.c utils/quote_utils.c utils/custom_trim.c utils/file_utils.c utils/errors.c
 CC = gcc
 CFLAGS = -Wall -Wextra -Werror -g
-# READLINE = -I/Users/$(USER)/homebrew/opt/readline/include -L/Users/$(USER)/homebrew/opt/readline/lib -lreadline
+READLINE = -I/Users/$(USER)/homebrew/opt/readline/include -L/Users/$(USER)/homebrew/opt/readline/lib -lreadline
 NAME = minishell
 LIBFT = libft/libft.a
 
