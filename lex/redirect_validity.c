@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 15:14:25 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:55:10 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,6 @@ static int	valid_redirect(char **user_input, int i)
 bool	redirect_validity(t_mshell *shell)
 {
 	int		i;
-	char	*trimmed_input;
-	char	*input_ptr;
 
 	i = 0;
 	while (shell->tokens[i])

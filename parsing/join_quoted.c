@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/19 14:47:51 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:53:50 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	last_element(char **array)
 	return (i);
 }
 
-static char	**join_to_last(t_mshell *shell, char	**array, char *new_string)
+static char	**join_to_last(t_mshell *shell, char **array, char *new_string)
 {
 	char	*new_temp;
 	char	symbol;

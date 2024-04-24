@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 10:53:20 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/22 17:27:36 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/24 11:27:15 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,9 @@ void	execute_command(t_mshell *shell, char **env)
 	else if (!ft_strncmp(shell->command[0], "unset", 6))
 		shell->exit_code = ft_unset(shell);
 	else
+	{
+		(free(lower_cmd), lower_cmd = NULL);
 		execute_external(shell, env);
+	}
 	(reset_fds(shell), free_shell(shell, 0, -1), free(lower_cmd));
 }

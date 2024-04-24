@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:55:19 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/22 12:56:15 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:41:48 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	check_signal(t_mshell *shell)
 {
 	struct sigaction	sa;
 
+	ft_bzero(&sa, sizeof(sa));
 	sa.sa_handler = &handler;
 	sa.sa_flags = SA_RESTART;
 	if (sigaction(SIGINT, &sa, NULL) < 0)
@@ -37,4 +38,5 @@ void	check_signal(t_mshell *shell)
 	// 	shell->exit_code = 1;
 	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
 		perror("SIGQUIT Error");
+	(void) shell;
 }

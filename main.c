@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/22 12:51:45 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 11:38:35 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	main(int argc, char **argv, char **envp)
 {
 	t_mshell	shell;
-	pid_t		pid;
-	int			input_len;
 
 	ft_bzero(&shell, sizeof(t_mshell));
 	env_to_list(&shell, envp);
@@ -32,4 +30,6 @@ int	main(int argc, char **argv, char **envp)
 	}
 	free_shell(&shell, 1, 0);
 	return (0);
+	(void) argc;
+	(void) argv;
 }

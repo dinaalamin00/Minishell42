@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/23 14:25:00 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:53:25 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ bool	special_expand(int exit_code, char **str)
 bool	expand_string(t_mshell *shell, char **str)
 {
 	char	*temp;
-	int		error;
 
 	while (ft_strchr(*(str), '$'))
 	{

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:33:14 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/21 14:44:14 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:53:09 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	run_command(t_mshell *shell, char **env)
 		shell->exit_code = exit;
 		return ;
 	}
-	exit = parser(shell, env);
+	exit = parser(shell);
 	if (exit == EXIT_FAILURE)
 	{
 		shell->exit_code = exit;

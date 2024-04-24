@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/22 12:51:02 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:55:53 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	valid_value(char *value)
 int	ft_export(t_mshell *shell)
 {
 	int		i;
-	char	*env_var;
 	int		exit_code;
 
 	i = 1;

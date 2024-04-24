@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 10:23:16 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/19 15:29:58 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:54:48 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 bool	clean_command(t_mshell *shell)
 {
 	int		i;
-	char	*temp;
 
 	shell->command = malloc(sizeof(char *));
 	if (!shell->command)

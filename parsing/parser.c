@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/23 13:06:31 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/24 09:52:51 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	display_command(char **command)
 	printf("\n");
 }
 
-int	parser(t_mshell *shell, char **env)
+int	parser(t_mshell *shell)
 {
 	if (!expand_params(shell))
 		return (EXIT_FAILURE);

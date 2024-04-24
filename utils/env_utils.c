@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/22 17:41:39 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/24 09:56:01 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ bool	param_lstadd(t_mshell *shell, char *key, char *value)
 
 bool	add_var(t_mshell *shell, char *str)
 {
-	t_param	*node;
 	char	*assign;
 	char	*key;
 	char	*value;
