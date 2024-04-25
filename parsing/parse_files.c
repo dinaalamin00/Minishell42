@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:43:11 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 14:34:14 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:22:48 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static char	*get_file(t_mshell *shell, int i, int *mode)
 {
 	char	*file_name;
 
+	file_name = NULL;
 	if (shell->tokens[i][0] == '<')
 	{
 		if (shell->tokens[i][1] == '<')
@@ -32,6 +33,7 @@ static char	*get_file(t_mshell *shell, int i, int *mode)
 		else if (!shell->tokens[i][1])
 			*mode = WR;
 	}
+	if (shell->tokens[i + 1])
 	file_name = ft_strdup(shell->tokens[i + 1]);
 	return (file_name);
 }

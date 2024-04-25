@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 13:51:27 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/25 08:08:45 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ int	main(int argc, char **argv, char **envp)
 		if (!shell.user_input || ft_strncmp(shell.user_input, "exit", 5) == 0)
 			ft_exit(&shell);
 		run_command(&shell, envp);
+		free_shell(&shell, 0, -1);
 	}
-	free_shell(&shell, 1, 0);
 	return (0);
 	(void) argc;
 	(void) argv;

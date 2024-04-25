@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/21 12:47:54 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/25 10:57:14 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ static void	open_file(t_mshell *shell, int *error)
 			shell->exit_code = 1;
 			*error = 1;
 		}
+		// close (file->fd);
 		file = file->next;
 	}
 }
@@ -97,6 +98,8 @@ bool	open_dup(t_mshell *shell)
 
 void	reset_fds(t_mshell *shell)
 {
+	if (dup2(shell->orig_stdout, STDOUT_FILENO))
 	dup2(shell->orig_stdin, STDIN_FILENO);
-	dup2(shell->orig_stdout, STDOUT_FILENO);
+	close (shell->orig_stdout);
+	close (shell->orig_stdin);
 }
