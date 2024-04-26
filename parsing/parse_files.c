@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_files.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:43:11 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/26 12:09:26 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 16:13:35 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ bool	parse_files(t_mshell *shell)
 	int		mode;
 	char	*file_name;
 
-	if (!join_quote(shell))
-		return (malloc_error(shell, 0, -1), FAILURE);
 	i = 0;
 	while (shell->tokens[i])
 	{

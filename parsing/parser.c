@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/26 12:11:40 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:21:20 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,13 @@ bool token_remainder(char **tokens)
 
 int	parser(t_mshell *shell)
 {
-	if (!parse_files(shell))
-		return (EXIT_FAILURE);
 	if (!expand_params(shell))
 		return (EXIT_FAILURE);
-	// if (!expand_files(shell))
-	// 	return (EXIT_FAILURE);
+	display_command(shell->tokens);
+	if (!join_quote(shell))
+		return (malloc_error(shell, 0, -1), FAILURE);
+	if (!parse_files(shell))
+		return (EXIT_FAILURE);
 	if (token_remainder(shell->tokens))
 	{
 		if (!clean_command(shell))

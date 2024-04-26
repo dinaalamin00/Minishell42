@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand_params.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/24 09:53:25 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 17:19:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,7 @@ bool	expand_string(t_mshell *shell, char **str)
 	while (ft_strchr(*(str), '$'))
 	{
 		temp = *(str);
-		if (ft_strchr(*(str), '$')
-			&& (*(ft_strchr(*(str), '$') + 1) == '?'
+		if ((*(ft_strchr(*(str), '$') + 1) == '?'
 				|| *(ft_strchr(*(str), '$') + 1) == '$'))
 		{
 			if (!special_expand(shell->exit_code, str))
@@ -103,10 +102,12 @@ bool	expand_params(t_mshell *shell)
 	while (shell->tokens[i])
 	{
 		quote = ft_strset(shell->tokens[i], "\'\"");
-		if (!quote || *quote != '\'')
+		if (ft_strchr(shell->tokens[i], '$') && (!quote || *quote != '\''))
 		{
 			if (!expand_string(shell, &(shell->tokens[i])))
 				return (FAILURE);
+			if (!quote)
+				close_quote(&(shell->tokens[i]), "\"");
 		}
 		i++;
 	}
