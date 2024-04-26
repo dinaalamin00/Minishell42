@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:43:11 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/25 18:22:48 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:09:26 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static char	*get_file(t_mshell *shell, int i, int *mode)
 			*mode = WR;
 	}
 	if (shell->tokens[i + 1])
-	file_name = ft_strdup(shell->tokens[i + 1]);
+		file_name = ft_strdup(shell->tokens[i + 1]);
 	return (file_name);
 }
 

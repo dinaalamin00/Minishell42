@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:58:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/25 18:24:32 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:11:40 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,12 +50,12 @@ bool token_remainder(char **tokens)
 
 int	parser(t_mshell *shell)
 {
-	if (!expand_params(shell))
-		return (EXIT_FAILURE);
-	if (!redirect_validity(shell))
-		return (EXIT_FAILURE);
 	if (!parse_files(shell))
 		return (EXIT_FAILURE);
+	if (!expand_params(shell))
+		return (EXIT_FAILURE);
+	// if (!expand_files(shell))
+	// 	return (EXIT_FAILURE);
 	if (token_remainder(shell->tokens))
 	{
 		if (!clean_command(shell))
@@ -65,3 +65,4 @@ int	parser(t_mshell *shell)
 	shell->tokens = NULL;
 	return (EXIT_SUCCESS);
 }
+

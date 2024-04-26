@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:19:52 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/24 09:55:53 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 09:10:36 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	ft_export(t_mshell *shell)
 		ft_env(shell, 1);
 	while (shell->command[i])
 	{
-		if (!add_var(shell, shell->command[i]))
+		if (!add_var(shell, (shell->command[i])))
 			exit_code = 1;
 		i++;
 	}

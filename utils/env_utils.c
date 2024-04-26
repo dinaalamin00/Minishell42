@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:38:46 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/25 15:53:35 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 12:24:27 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ bool	param_lstadd(t_mshell *shell, char *key, char *value)
 	}
 	else if (node && node->value)
 	{
+		free(key);
 		free(node->value);
 		node->value = NULL;
 	}
