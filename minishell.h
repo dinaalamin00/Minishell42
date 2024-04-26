@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 09:53:02 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/26 15:06:06 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,9 @@ typedef struct s_param
 typedef struct s_mshell
 {
 	char	*user_input;
-	char	**command;
+	char	**pipe_command;
 	char	**tokens;
+	char	**command;
 	t_flist	*stdfile;
 	t_param	*params;
 	int		exit_code;
