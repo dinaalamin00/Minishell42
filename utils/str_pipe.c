@@ -1,34 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   run_command.c                                      :+:      :+:    :+:   */
+/*   str_pipe.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 17:33:14 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/27 17:43:08 by diahmed          ###   ########.fr       */
+/*   Created: 2024/04/27 17:14:10 by diahmed           #+#    #+#             */
+/*   Updated: 2024/04/27 17:54:59 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
-void	run_command(t_mshell *shell, char **env)
+char	*str_pipe(const char *str)
 {
-	int	exit_value;
+	int		i;
+	char	symbol;
 
-	if (str_pipe(shell->user_input))
-		shell->pipe_command = split_by_pipe(shell->user_input);
-	exit_value = lexer(shell);
-	if (exit_value == EXIT_FAILURE)
+	i = 0;
+	if (!str)
+		return (NULL);
+	while (str[i])
 	{
-		shell->exit_code = exit_value;
-		return ;
+		if (str[i] == '|')
+			return ((char *)str + i);
+		if (str[i] == '\'' || str[i] == '\"')
+		{
+			symbol = str[i++];
+			while (str[i] != symbol && str[i])
+				i++;
+		}
+		else
+			i++;
 	}
-	exit_value = parser(shell);
-	if (exit_value == EXIT_FAILURE)
-	{
-		shell->exit_code = exit_value;
-		return ;
-	}
-	executor(shell, env);
+	return (NULL);
 }

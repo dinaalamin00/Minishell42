@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/26 15:06:06 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/27 17:29:05 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
 void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
 int		is_alldigit(char *str);
+char	*str_pipe(const char *str);
 
 //error
 void	key_error(char *cmd, char *key);
