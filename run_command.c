@@ -16,8 +16,7 @@ void	run_command(t_mshell *shell, char **env)
 {
 	int	exit_value;
 
-	if (str_pipe(shell->user_input))
-		shell->pipe_command = split_by_pipe(shell->user_input);
+	pipe_check(shell);
 	exit_value = lexer(shell);
 	if (exit_value == EXIT_FAILURE)
 	{

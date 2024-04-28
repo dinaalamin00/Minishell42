@@ -75,6 +75,8 @@ bool	is_redirect(char c);
 bool	split_by_quote(t_mshell *shell);
 bool	split_by_redirect(t_mshell *shell);
 bool	split_by_space(t_mshell *shell);
+void    pipe_check(t_mshell *shell);
+char	**split_by_pipe(t_mshell *shell);
 
 //parser
 int		parser(t_mshell *shell);

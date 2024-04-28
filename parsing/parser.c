@@ -52,7 +52,6 @@ int	parser(t_mshell *shell)
 {
 	if (!expand_params(shell))
 		return (EXIT_FAILURE);
-	display_command(shell->tokens);
 	if (!join_quote(shell))
 		return (malloc_error(shell, 0, -1), FAILURE);
 	if (!parse_files(shell))
