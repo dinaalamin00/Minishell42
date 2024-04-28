@@ -30,14 +30,25 @@ char	*str_pipe(const char *str)
 			while (str[i] != symbol && str[i])
 				i++;
 		}
-		else
-			i++;
+		i++;
 	}
 	return (NULL);
 }
 
-void    pipe_check(t_mshell *shell)
+int    pipe_check(t_mshell *shell)
 {
+	if (!quote_validity(shell) || !pipe_validity(shell))
+		return (EXIT_FAILURE);
+	shell->pipe_command = malloc(1 * sizeof(char *));
+	if (!shell->pipe_command)
+		malloc_error(shell, 0, -1);
+	shell->pipe_command[0] = NULL;
     if (str_pipe(shell->user_input))
 	    split_by_pipe(shell);
+	else
+		shell->pipe_command = append_to_array(shell, shell->pipe_command,
+			ft_strdup(shell->user_input));
+	for(int k=0;shell->pipe_command[k];k++)
+		printf("cmd : (%s)\n", shell->pipe_command[k]);
+	return (0);
 }

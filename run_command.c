@@ -16,7 +16,12 @@ void	run_command(t_mshell *shell, char **env)
 {
 	int	exit_value;
 
-	pipe_check(shell);
+	exit_value = pipe_check(shell);
+	if (exit_value == EXIT_FAILURE)
+	{
+		shell->exit_code = exit_value;
+		return ;
+	}
 	exit_value = lexer(shell);
 	if (exit_value == EXIT_FAILURE)
 	{
