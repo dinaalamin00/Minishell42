@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_external.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 11:33:00 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/30 13:48:26 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,10 @@ int	execute_external(t_mshell *shell, char **env)
 	pid_t	pid;
 	char	**path;
 
+	if (signal(SIGINT, &exec_handler) == SIG_ERR)
+		perror("SIGINT Error");
+	if (signal(SIGQUIT, &exec_handler) == SIG_ERR)
+		perror("SIGQUIT Error");
 	pid = fork();
 	if (pid == 0)
 	{
@@ -83,7 +87,15 @@ int	execute_external(t_mshell *shell, char **env)
 	else
 	{
 		waitpid(pid, &shell->exit_code, 0);
-		shell->exit_code = WEXITSTATUS(shell->exit_code);
+		if (WIFSIGNALED(shell->exit_code))
+		{
+			if (WTERMSIG(shell->exit_code) == SIGINT)
+				shell->exit_code = 130;
+			else if (WTERMSIG(shell->exit_code) == SIGQUIT)
+				shell->exit_code = 131;
+		}
+		else
+			shell->exit_code = WEXITSTATUS(shell->exit_code);
 	}
 	return (0);
 }

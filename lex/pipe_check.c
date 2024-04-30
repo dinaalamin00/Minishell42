@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe_lex.c                                         :+:      :+:    :+:   */
+/*   pipe_check.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/27 17:10:19 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/27 17:10:28 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/30 14:08:53 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*str_pipe(const char *str)
 	return (NULL);
 }
 
-int    pipe_check(t_mshell *shell)
+int	pipe_check(t_mshell *shell)
 {
 	if (!quote_validity(shell) || !pipe_validity(shell))
 		return (EXIT_FAILURE);
@@ -43,12 +43,10 @@ int    pipe_check(t_mshell *shell)
 	if (!shell->pipe_command)
 		malloc_error(shell, 0, -1);
 	shell->pipe_command[0] = NULL;
-    if (str_pipe(shell->user_input))
-	    split_by_pipe(shell);
+	if (str_pipe(shell->user_input))
+		split_by_pipe(shell);
 	else
 		shell->pipe_command = append_to_array(shell, shell->pipe_command,
-			ft_strdup(shell->user_input));
-	for(int k=0;shell->pipe_command[k];k++)
-		printf("cmd : (%s)\n", shell->pipe_command[k]);
+				ft_strdup(shell->user_input));
 	return (0);
 }

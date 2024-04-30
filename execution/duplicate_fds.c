@@ -3,41 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   duplicate_fds.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/26 12:20:32 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:06:48 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-static int	here_doc(t_mshell *shell, char *name)
-{
-	int		fd[2];
-	char	*line;
-	char	*delimiter;
-
-	if (pipe(fd) < 0)
-		return (ft_putendl_fd("Error creating pipe", 2), -1);
-	line = get_next_line(0);
-	if (!is_quote(*name))
-		delimiter = ft_str_join(name, "\n");
-	else
-		delimiter = ft_strjoin(custom_trim(ft_strdup(name), *name, 0), "\n");
-	while (line && ft_strncmp(line, delimiter, ft_strlen(delimiter) + 1) != 0)
-	{
-		if (!is_quote(*name))
-			expand_string(shell, &line);
-		ft_putstr_fd(line, fd[1]);
-		free(line);
-		line = get_next_line(0);
-	}
-	free(delimiter);
-	free(line);
-	close(fd[1]);
-	return (fd[0]);
-}
 
 static void	open_file(t_mshell *shell, int *error)
 {
@@ -79,7 +52,7 @@ bool	open_dup(t_mshell *shell)
 	{
 		if (file->mode == RD || file->mode == HERE_DOC)
 			dup_status = dup2(file->fd, STDIN_FILENO);
-		else if (file->mode == 1 || file->mode == 2)
+		else if (file->mode == WR || file->mode == 2)
 			dup_status = dup2(file->fd, STDOUT_FILENO);
 		if (file->fd >= 0 && dup_status < 0)
 		{

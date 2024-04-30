@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/27 17:29:05 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/30 14:43:21 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
 
+int	signal_num;
 typedef struct s_flist
 {
 	char			*name;
@@ -65,7 +66,13 @@ typedef struct s_mshell
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
+
+//signals
 void	check_signal(t_mshell *Shell);
+void	handler(int signum);
+void	exec_handler(int signum);
+void	heredoc_handler(int signum);
+
 //lexer
 int		lexer(t_mshell *shell);
 bool	quote_validity(t_mshell *shell);
@@ -75,7 +82,7 @@ bool	is_redirect(char c);
 bool	split_by_quote(t_mshell *shell);
 bool	split_by_redirect(t_mshell *shell);
 bool	split_by_space(t_mshell *shell);
-int    pipe_check(t_mshell *shell);
+int		pipe_check(t_mshell *shell);
 bool	pipe_validity(t_mshell *shell);
 char	*str_pipe(const char *str);
 char	**split_by_pipe(t_mshell *shell);
@@ -85,6 +92,7 @@ int		parser(t_mshell *shell);
 bool	expand_params(t_mshell *shell);
 bool	expand_string(t_mshell *shell, char **str);
 bool	parse_files(t_mshell *shell);
+int		here_doc(t_mshell *shell, char *name);
 bool	join_quote(t_mshell *shell);
 bool	clean_command(t_mshell *shell);
 
@@ -120,10 +128,12 @@ void	flst_clear(t_flist **lst);
 int		array_len(char	**array);
 void	free_shell(t_mshell *shell, int param_flag, int exit_flag);
 int		is_alldigit(char *str);
+void	quote_str(t_mshell *shell, int i);
 char	*str_pipe(const char *str);
 
 //error
 void	key_error(char *cmd, char *key);
 int		command_error(t_mshell *shell, t_param	*path, char *message, int code);
 void	malloc_error(t_mshell *shell, int param_flag, int exit_flag);
+
 #endif

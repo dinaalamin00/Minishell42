@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 11:30:47 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/26 17:19:28 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/29 12:00:11 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,8 +106,8 @@ bool	expand_params(t_mshell *shell)
 		{
 			if (!expand_string(shell, &(shell->tokens[i])))
 				return (FAILURE);
-			if (!quote)
-				close_quote(&(shell->tokens[i]), "\"");
+			if (!quote && ft_strset(shell->tokens[i], "<>|"))
+				quote_str(shell, i);
 		}
 		i++;
 	}
