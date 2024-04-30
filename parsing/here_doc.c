@@ -6,11 +6,16 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:20:33 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 16:07:51 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/30 17:28:35 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+// void	duplicate_heredoc(int fd)
+// {
+	
+// }
 
 int	here_doc(t_mshell *shell, char *name)
 {
@@ -21,6 +26,7 @@ int	here_doc(t_mshell *shell, char *name)
 
 	if (pipe(fd) < 0)
 		return (ft_putendl_fd("Error creating pipe", 2), -1);
+		// return ;
 	pid = fork();
 	if (pid < 0)
 	{
@@ -29,6 +35,7 @@ int	here_doc(t_mshell *shell, char *name)
 	}
 	if (!pid)
 	{
+		close(fd[0]);
 		if (signal(SIGINT, heredoc_handler) == SIG_ERR)
 			perror("SIGQUIT Error");
 		line = get_next_line(0);
@@ -50,12 +57,20 @@ int	here_doc(t_mshell *shell, char *name)
 	}
 	else
 	{
-		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
-			perror("SIGQUIT Error");
+		close(fd[1]);
 		waitpid(pid, &shell->exit_code, 0);
 		shell->exit_code = WEXITSTATUS(shell->exit_code);
-		close(fd[1]);
-		check_signal(shell);
-		return (fd[0]);
+		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+			perror("SIGQUIT Error");
+		if (shell->exit_code != 0)
+		{
+			// check_signal(shell);
+			close(fd[0]);
+			// if (dup2(fd[0], STDIN_FILENO) < 0)
+			// 	perror("Here_doc");
+			return (-1);
+		}
 	}
+	check_signal(shell);
+	return (fd[0]);
 }

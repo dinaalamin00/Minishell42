@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 16:06:48 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/30 17:25:45 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	open_file(t_mshell *shell, int *error)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else if (file->mode == RDWR)
 			file->fd = open(file->name, O_CREAT | O_RDWR, 0644);
-		if (file->fd < 0)
+		if (file->fd == -1 && file->mode != HERE_DOC)
 		{
 			perror(file->name);
 			shell->exit_code = 1;
@@ -70,8 +70,9 @@ bool	open_dup(t_mshell *shell)
 
 void	reset_fds(t_mshell *shell)
 {
-	if (dup2(shell->orig_stdout, STDOUT_FILENO))
-		dup2(shell->orig_stdin, STDIN_FILENO);
-	close (shell->orig_stdout);
-	close (shell->orig_stdin);
+	if (dup2(shell->orig_stdout, STDOUT_FILENO) < 0
+		|| dup2(shell->orig_stdin, STDIN_FILENO) < 0)
+		perror("reset fd");
+	// close (shell->orig_stdin);
+	// close (shell->orig_stdout);
 }
