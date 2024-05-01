@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 17:16:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/01 17:54:27 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ typedef struct s_mshell
 	int		exit_code;
 	int		orig_stdin;
 	int		orig_stdout;
+	int		here_flag;
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);
@@ -72,6 +73,8 @@ void	check_signal(t_mshell *Shell);
 void	handler(int signum);
 void	exec_handler(int signum);
 void	heredoc_handler(int signum);
+void	exec_signal(void);
+void	heredoc_parent(int signum);	
 
 //lexer
 int		lexer(t_mshell *shell);
@@ -92,7 +95,7 @@ int		parser(t_mshell *shell);
 bool	expand_params(t_mshell *shell);
 bool	expand_string(t_mshell *shell, char **str);
 bool	parse_files(t_mshell *shell);
-int	here_doc(t_mshell *shell, char *name);
+void	here_doc(t_mshell *shell, char *name);
 bool	join_quote(t_mshell *shell);
 bool	clean_command(t_mshell *shell);
 

@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 10:32:47 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 17:25:45 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/01 15:16:34 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static void	open_file(t_mshell *shell, int *error)
 		if (file->mode == RD)
 			file->fd = open(file->name, O_RDONLY, 0644);
 		else if (file->mode == HERE_DOC)
-			file->fd = here_doc(shell, file->name);
+			here_doc(shell, file->name);
 		else if (file->mode == WR)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (file->mode == APPEND)
@@ -50,7 +50,7 @@ bool	open_dup(t_mshell *shell)
 	file = shell->stdfile;
 	while (file)
 	{
-		if (file->mode == RD || file->mode == HERE_DOC)
+		if (file->mode == RD)
 			dup_status = dup2(file->fd, STDIN_FILENO);
 		else if (file->mode == WR || file->mode == 2)
 			dup_status = dup2(file->fd, STDOUT_FILENO);
@@ -60,7 +60,8 @@ bool	open_dup(t_mshell *shell)
 			shell->exit_code = 1;
 			error = 1;
 		}
-		close (file->fd);
+		if (file->mode != HERE_DOC)
+			close (file->fd);
 		file = file->next;
 	}
 	if (error)

@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 11:02:27 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 13:48:26 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/01 17:02:56 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,10 @@ int	execute_external(t_mshell *shell, char **env)
 	}
 	else
 	{
+		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
+			perror("SIGINT Error");
+		if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+			perror("SIGQUIT Error");
 		waitpid(pid, &shell->exit_code, 0);
 		if (WIFSIGNALED(shell->exit_code))
 		{
@@ -96,6 +100,7 @@ int	execute_external(t_mshell *shell, char **env)
 		}
 		else
 			shell->exit_code = WEXITSTATUS(shell->exit_code);
+		check_signal(shell);
 	}
 	return (0);
 }

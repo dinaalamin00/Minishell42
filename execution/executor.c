@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:59:59 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/25 07:52:18 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/05/01 17:55:06 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ int	executor(t_mshell *shell, char **env)
 	file_error = 0;
 	if (!open_dup(shell))
 		return (reset_fds(shell), 1);
-	if (shell->command && shell->command[0])
+	printf("exit code out : %d\n", shell->exit_code);
+	if (shell->command && shell->command[0]
+		&& shell->here_flag != 1)
 		execute_command(shell, env);
 	return (reset_fds(shell), 0);
 }

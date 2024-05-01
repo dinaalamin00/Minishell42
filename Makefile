@@ -14,7 +14,7 @@ LIBFT = libft/libft.a
 all: $(NAME)
 
 $(NAME): $(SRC) $(LIBFT)
-	$(CC) $(READLINE) $(LIBFT) $^ -o $@ -l readline
+	$(CC) -fsanitize=address $(READLINE) $(LIBFT) $^ -o $@ -l readline
 
 $(LIBFT):
 	make all -C libft

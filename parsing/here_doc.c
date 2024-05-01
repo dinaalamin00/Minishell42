@@ -6,18 +6,13 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/30 10:20:33 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 17:28:35 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/01 17:54:43 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// void	duplicate_heredoc(int fd)
-// {
-	
-// }
-
-int	here_doc(t_mshell *shell, char *name)
+void	here_doc(t_mshell *shell, char *name)
 {
 	int		fd[2];
 	pid_t	pid;
@@ -25,19 +20,18 @@ int	here_doc(t_mshell *shell, char *name)
 	char	*delimiter;
 
 	if (pipe(fd) < 0)
-		return (ft_putendl_fd("Error creating pipe", 2), -1);
-		// return ;
+		return ;
 	pid = fork();
 	if (pid < 0)
 	{
 		perror(NULL);
-		return (-1);
+		return ;
 	}
 	if (!pid)
 	{
-		close(fd[0]);
-		if (signal(SIGINT, heredoc_handler) == SIG_ERR)
+		if (signal(SIGINT, &heredoc_handler) == SIG_ERR)
 			perror("SIGQUIT Error");
+		close(fd[0]);
 		line = get_next_line(0);
 		if (!is_quote(*name))
 			delimiter = ft_str_join(name, "\n");
@@ -57,20 +51,28 @@ int	here_doc(t_mshell *shell, char *name)
 	}
 	else
 	{
-		close(fd[1]);
-		waitpid(pid, &shell->exit_code, 0);
-		shell->exit_code = WEXITSTATUS(shell->exit_code);
 		if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 			perror("SIGQUIT Error");
+		// if (signal(SIGINT, &heredoc_parent) == SIG_ERR)
+		// perror("SIGINT Error");
+		waitpid(pid, &shell->exit_code, 0);
+		close(fd[1]);
+		shell->exit_code = WEXITSTATUS(shell->exit_code);
+		// pri ntf("exit code : %d\n", shell->exit_code);
 		if (shell->exit_code != 0)
 		{
-			// check_signal(shell);
+			// printf("hh::\n");
+			check_signal(shell);
+			shell->here_flag = 1;
 			close(fd[0]);
-			// if (dup2(fd[0], STDIN_FILENO) < 0)
-			// 	perror("Here_doc");
-			return (-1);
+			return ;
 		}
+		else
+		{
+			if (dup2(fd[0], STDIN_FILENO) < 0)
+				perror(NULL);
+			close(fd[0]);
+		}
+		check_signal(shell);
 	}
-	check_signal(shell);
-	return (fd[0]);
 }

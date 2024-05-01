@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 12:55:19 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/30 17:27:53 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/01 17:56:37 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 void	handler(int signum)
 {
+	// write(2, ":::\n", 4);
 	if (signum == SIGINT)
 	{
 		signal_num = SIGINT;
+		printf("main handlern\n");
 		printf("\033[1;32m");
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -28,28 +30,42 @@ void	handler(int signum)
 
 void	heredoc_handler(int signum)
 {
+	// write(2, ":::\n", 4);
 	if (signum == SIGINT)
 	{
-		write(1, "\n", 1);
-		// rl_on_new_line();
-		// printf("heredoc handlern\n");/
+		printf("heredoc handlern\n");
+		signal_num = SIGINT;
 		exit(1);
 	}
 }
 
+void	heredoc_parent(int signum)
+{
+	// write(2, ":::\n", 4);
+	if (signum == SIGINT)
+	{
+		printf("heredoc parent\n");
+		rl_replace_line("", 0);
+		rl_redisplay();
+	}
+}
 void	exec_handler(int signum)
 {
+	// write(2, "::exec:\n", 4);
 	if (signum == SIGINT)
 	{
 		write(1, "\n", 1);
-		// rl_on_new_line();
+		printf("child handlern\n");
+		exit(130);
 	}
 	if (signum == SIGQUIT)
 	{
 		write(1, "QUIT: \n", 7);
-		// rl_on_new_line();
+		printf("child handlern\n");
+		exit(131);
 	}
 }
+
 
 void	check_signal(t_mshell *shell)
 {
