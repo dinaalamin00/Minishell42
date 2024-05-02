@@ -73,9 +73,12 @@ bool	open_dup(t_mshell *shell)
 
 void	reset_fds(t_mshell *shell)
 {
-	if (dup2(shell->orig_stdout, STDOUT_FILENO) < 0
-		|| dup2(shell->orig_stdin, STDIN_FILENO) < 0)
-		perror("reset fd");
-	close (shell->orig_stdin);
-	close (shell->orig_stdout);
+	if (dup2(shell->orig_stdin, STDIN_FILENO) < 0)
+		perror("reset in fd");
+	else
+		close (shell->orig_stdin);
+	if (dup2(shell->orig_stdout, STDOUT_FILENO) < 0)
+		perror("reset out fd");
+	else
+		close (shell->orig_stdout);
 }
