@@ -39,7 +39,7 @@ void	heredoc_handler(int signum)
 	}
 }
 
-void	heredoc_parent(int signum)
+void	heredoc_parent_signal(int signum)
 {
 	// write(2, ":::\n", 4);
 	if (signum == SIGINT)

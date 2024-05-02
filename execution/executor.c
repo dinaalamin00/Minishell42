@@ -20,10 +20,9 @@ int	executor(t_mshell *shell, char **env)
 	shell->orig_stdout = dup(STDOUT_FILENO);
 	file_error = 0;
 	if (!open_dup(shell))
-		return (reset_fds(shell), 1);
+		return (reset_fds(shell), EXIT_FAILURE);
 	printf("exit code out : %d\n", shell->exit_code);
-	if (shell->command && shell->command[0]
-		&& shell->here_flag != 1)
+	if (shell->command && shell->command[0])
 		execute_command(shell, env);
 	return (reset_fds(shell), 0);
 }

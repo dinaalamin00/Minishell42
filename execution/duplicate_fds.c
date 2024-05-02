@@ -12,33 +12,38 @@
 
 #include "../minishell.h"
 
-static void	open_file(t_mshell *shell, int *error)
+static bool	open_file(t_mshell *shell, int *error)
 {
 	t_flist	*file;
 
 	file = shell->stdfile;
 	while (file)
 	{
+		printf("::LL::\n");
 		if (file->mode == RD)
 			file->fd = open(file->name, O_RDONLY, 0644);
 		else if (file->mode == HERE_DOC)
-			here_doc(shell, file->name);
+			file->fd = here_doc(shell, file->name);
 		else if (file->mode == WR && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
 		else if (file->mode == APPEND && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
 		else if (file->mode == RDWR && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_RDWR, 0644);
-		if (file->fd == -1 && file->mode != HERE_DOC)
+		if (file->fd == -1)
 		{
-			perror(file->name);
+			if (file->mode != HERE_DOC)
+				perror(file->name);
 			shell->exit_code = 1;
 			*error = 1;
-			if (file->mode == RD || file->mode == RDWR)
+			if (file->mode == RD || file->mode == RDWR || file->mode == HERE_DOC)
 				shell->file_err = 1;
 		}
 		file = file->next;
 	}
+	if (shell->file_err == 1 || *error == 1)
+		return(FAILURE);
+	return (SUCCESS);
 }
 
 bool	open_dup(t_mshell *shell)
@@ -48,15 +53,16 @@ bool	open_dup(t_mshell *shell)
 	int		error;
 
 	error = 0;
-	open_file(shell, &error);
+	if (!open_file(shell, &error))
+		return(flst_clear(&shell->stdfile), FAILURE);
 	file = shell->stdfile;
 	while (file)
 	{
-		if (file->mode == RD)
+		if (file->mode == RD || file->mode == RDWR)
 			dup_status = dup2(file->fd, STDIN_FILENO);
-		else if (file->mode == WR || file->mode == 2)
+		else if (file->mode == WR || file->mode == APPEND)
 			dup_status = dup2(file->fd, STDOUT_FILENO);
-		if (file->fd >= 0 && dup_status < 0)
+		if (dup_status < 0)
 		{
 			perror("Error duplicating fd");
 			shell->exit_code = 1;
@@ -75,10 +81,10 @@ void	reset_fds(t_mshell *shell)
 {
 	if (dup2(shell->orig_stdin, STDIN_FILENO) < 0)
 		perror("reset in fd");
-	else
-		close (shell->orig_stdin);
+	// else
+	// 	close (shell->orig_stdin);
 	if (dup2(shell->orig_stdout, STDOUT_FILENO) < 0)
 		perror("reset out fd");
-	else
-		close (shell->orig_stdout);
+	// else
+	// 	close (shell->orig_stdout);
 }

@@ -75,7 +75,7 @@ void	handler(int signum);
 void	exec_handler(int signum);
 void	heredoc_handler(int signum);
 void	exec_signal(void);
-void	heredoc_parent(int signum);	
+void	heredoc_parent_signal(int signum);	
 
 //lexer
 int		lexer(t_mshell *shell);
@@ -96,13 +96,13 @@ int		parser(t_mshell *shell);
 bool	expand_params(t_mshell *shell);
 bool	expand_string(t_mshell *shell, char **str);
 bool	parse_files(t_mshell *shell);
-void	here_doc(t_mshell *shell, char *name);
 bool	join_quote(t_mshell *shell);
 bool	clean_command(t_mshell *shell);
 
 //executor
 int		executor(t_mshell *shell, char **env);
 bool	open_dup(t_mshell *shell);
+int	here_doc(t_mshell *shell, char *name);
 void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 int		ft_exit(t_mshell *shell);

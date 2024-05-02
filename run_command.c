@@ -38,6 +38,7 @@ void	run_command(t_mshell *shell, char **env)
 	if (exit_value == EXIT_FAILURE)
 	{
 		shell->exit_code = exit_value;
+		free_shell(shell, 0, -1);
 		return ;
 	}
 }

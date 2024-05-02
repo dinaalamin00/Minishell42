@@ -12,11 +12,13 @@
 
 #include "../minishell.h"
 
-void	heredoc_child(t_mshell *shell, char *name)
+int	heredoc_child(t_mshell *shell, char *name, int *fd)
 {
+	char	*line;
+	char	*delimiter;
+
 	if (signal(SIGINT, &heredoc_handler) == SIG_ERR)
-			perror("SIGQUIT Error");
-	close(fd[0]);
+			perror("heredoc SIGINT Error");
 	line = get_next_line(0);
 	if (!is_quote(*name))
 		delimiter = ft_str_join(name, "\n");
@@ -32,58 +34,70 @@ void	heredoc_child(t_mshell *shell, char *name)
 	}
 	free(delimiter);
 	free(line);
+	return(fd[1]);
 }
 
-void	heredoc_parent(t_mshell *shell, char *name)
+int	heredoc_parent(t_mshell *shell, char *name, int *fd, pid_t pid)
 {
 	if (signal(SIGINT, SIG_IGN) == SIG_ERR)
 		perror("SIGQUIT Error");
 	// if (signal(SIGINT, &heredoc_parent) == SIG_ERR)
 	// perror("SIGINT Error")
-	;
+	// ;
 	waitpid(pid, &shell->exit_code, 0);
-	close(fd[1]);
-	shell->exit_code = WEXITSTATUS(shell->exit_code);
-	// pri ntf("exit code : %d\n", shell->exit_code);
+	// shell->exit_code = WEXITSTATUS(shell->exit_code);
+	if (WIFSIGNALED(shell->exit_code))
+	{
+		printf("pernt\n");
+		if (WTERMSIG(shell->exit_code) == SIGINT)
+			shell->exit_code = 1;
+	}
+	else
+		shell->exit_code = WEXITSTATUS(shell->exit_code);
+	printf("exit code = %d\n", shell->exit_code);
 	if (shell->exit_code != 0)
 	{
-		// printf("hh::\n");
-		check_signal(shell);
-		shell->here_flag = 1;
-		close(fd[0]);
-		return ;
+		// check_signal(shell);
+		// shell->here_flag = 1;
+		return (-1);
 	}
 	else
 	{
 		if (dup2(fd[0], STDIN_FILENO) < 0)
 			perror(NULL);
-		close(fd[0]);
+		// close(fd[0]);
 	}
+	return(0);
 }
 
-void	here_doc(t_mshell *shell, char *name)
+int	here_doc(t_mshell *shell, char *name)
 {
 	int		fd[2];
 	pid_t	pid;
-	char	*line;
-	char	*delimiter;
 
 	if (pipe(fd) < 0)
-		return ;
+		return (perror("pipe error"), -1);
 	pid = fork();
 	if (pid < 0)
-	{
-		perror(NULL);
-		return ;
-	}
+		return (perror("heredoc fork error"), -1);
 	if (!pid)
 	{
-		heredoc_child(shell, name);
+		close(fd[0]);
+		fd[1] = heredoc_child(shell, name, fd);
+		printf("hrdch\n");
 		exit(0);
 	}
 	else
 	{
-		heredoc_parent(shell, name);
-		check_signal(shell);
+		close(fd[1]);
+		if (heredoc_parent(shell, name, fd, pid) < 0)
+		{
+			close(fd[0]);
+			check_signal(shell);
+			return (-1);
+		}
+		close(fd[0]);
 	}
+	check_signal(shell);
+	return (0);
 }
