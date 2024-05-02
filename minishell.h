@@ -64,6 +64,7 @@ typedef struct s_mshell
 	int		orig_stdin;
 	int		orig_stdout;
 	int		here_flag;
+	int		file_err;
 }	t_mshell;
 
 void	run_command(t_mshell *shell, char **env);

@@ -23,17 +23,19 @@ static void	open_file(t_mshell *shell, int *error)
 			file->fd = open(file->name, O_RDONLY, 0644);
 		else if (file->mode == HERE_DOC)
 			here_doc(shell, file->name);
-		else if (file->mode == WR)
+		else if (file->mode == WR && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-		else if (file->mode == APPEND)
+		else if (file->mode == APPEND && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_WRONLY | O_APPEND, 0644);
-		else if (file->mode == RDWR)
+		else if (file->mode == RDWR && shell->file_err != 1)
 			file->fd = open(file->name, O_CREAT | O_RDWR, 0644);
 		if (file->fd == -1 && file->mode != HERE_DOC)
 		{
 			perror(file->name);
 			shell->exit_code = 1;
 			*error = 1;
+			if (file->mode == RD || file->mode == RDWR)
+				shell->file_err = 1;
 		}
 		file = file->next;
 	}
@@ -74,6 +76,6 @@ void	reset_fds(t_mshell *shell)
 	if (dup2(shell->orig_stdout, STDOUT_FILENO) < 0
 		|| dup2(shell->orig_stdin, STDIN_FILENO) < 0)
 		perror("reset fd");
-	// close (shell->orig_stdin);
-	// close (shell->orig_stdout);
+	close (shell->orig_stdin);
+	close (shell->orig_stdout);
 }

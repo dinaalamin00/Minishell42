@@ -34,5 +34,10 @@ void	run_command(t_mshell *shell, char **env)
 		shell->exit_code = exit_value;
 		return ;
 	}
-	executor(shell, env);
+	exit_value = executor(shell, env);
+	if (exit_value == EXIT_FAILURE)
+	{
+		shell->exit_code = exit_value;
+		return ;
+	}
 }
