@@ -6,12 +6,11 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:58:49 by diahmed           #+#    #+#             */
-/*   Updated: 2024/05/01 17:55:28 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/03 13:06:48 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -19,12 +18,15 @@ int	main(int argc, char **argv, char **envp)
 
 	ft_bzero(&shell, sizeof(t_mshell));
 	env_to_list(&shell, envp);
-	check_signal(&shell);
+	shell.orig_stdin = dup(STDIN_FILENO);
+	shell.orig_stdout = dup(STDOUT_FILENO);
 	while (1)
 	{
+		check_signal(&shell);
+		shell.file_err = 0;
 		printf("\033[1;32m");
 		shell.user_input = readline("minishell $ \033[0m");
-		if (shell.user_input)
+		if (shell.user_input && *shell.user_input)
 			add_history(shell.user_input);
 		if (!shell.user_input || ft_strncmp(shell.user_input, "exit", 5) == 0)
 			ft_exit(&shell);

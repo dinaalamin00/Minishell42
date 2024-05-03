@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 15:59:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/05/01 17:54:27 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/03 15:57:50 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
 
-int	signal_num;
+int	g_signal_num;
 typedef struct s_flist
 {
 	char			*name;
@@ -63,7 +63,6 @@ typedef struct s_mshell
 	int		exit_code;
 	int		orig_stdin;
 	int		orig_stdout;
-	int		here_flag;
 	int		file_err;
 }	t_mshell;
 
@@ -75,7 +74,6 @@ void	handler(int signum);
 void	exec_handler(int signum);
 void	heredoc_handler(int signum);
 void	exec_signal(void);
-void	heredoc_parent_signal(int signum);	
 
 //lexer
 int		lexer(t_mshell *shell);
@@ -96,13 +94,13 @@ int		parser(t_mshell *shell);
 bool	expand_params(t_mshell *shell);
 bool	expand_string(t_mshell *shell, char **str);
 bool	parse_files(t_mshell *shell);
+int		here_doc(t_mshell *shell, char *name);
 bool	join_quote(t_mshell *shell);
 bool	clean_command(t_mshell *shell);
 
 //executor
 int		executor(t_mshell *shell, char **env);
 bool	open_dup(t_mshell *shell);
-int	here_doc(t_mshell *shell, char *name);
 void	reset_fds(t_mshell *shell);
 void	execute_command(t_mshell *shell, char **env);
 int		ft_exit(t_mshell *shell);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_quoted.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
+/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/24 09:53:50 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/05/03 16:31:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,17 @@ static int	last_element(char **array)
 	while (array[i + 1])
 		i++;
 	return (i);
+}
+
+static	char	*trim_str_back(char *str, char **spaces, char *new_string)
+{
+	if (ft_strset(new_string, "\'\""))
+	{
+		*spaces = ft_strrset(new_string, "\'\"");
+		str = custom_trim(str, 32, 2);
+		str = custom_trim(str, **spaces, 2);
+	}
+	return (str);
 }
 
 static char	**join_to_last(t_mshell *shell, char **array, char *new_string)
@@ -40,12 +51,7 @@ static char	**join_to_last(t_mshell *shell, char **array, char *new_string)
 		return (NULL);
 	array[i] = ft_strjoin(custom_trim(custom_trim(array[i], 32, 0), symbol, 0),
 			new_temp);
-	if (ft_strset(new_string, "\'\""))
-	{
-		spaces = ft_strrset(new_string, "\'\"");
-		array[i] = custom_trim(array[i], 32, 2);
-		array[i] = custom_trim(array[i], *spaces, 2);
-	}
+	array[i] = trim_str_back(array[i], &spaces, new_string);
 	if (!array[i] || !close_quote(&array[i], new_string))
 		return (free(new_temp), NULL);
 	if (ft_strset(new_string, "\'\""))

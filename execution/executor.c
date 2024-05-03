@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 17:59:59 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/05/01 17:55:06 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/03 13:09:19 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,9 @@ int	executor(t_mshell *shell, char **env)
 {
 	int	file_error;
 
-	shell->orig_stdin = dup(STDIN_FILENO);
-	shell->orig_stdout = dup(STDOUT_FILENO);
 	file_error = 0;
 	if (!open_dup(shell))
-		return (reset_fds(shell), EXIT_FAILURE);
-	printf("exit code out : %d\n", shell->exit_code);
+		return (reset_fds(shell), 1);
 	if (shell->command && shell->command[0])
 		execute_command(shell, env);
 	return (reset_fds(shell), 0);
