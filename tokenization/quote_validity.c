@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   quotes.c                                           :+:      :+:    :+:   */
+/*   quote_validity.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:15:48 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/22 15:31:00 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/30 14:38:02 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static int	valid_quotes(char *user_input)
 	return (1);
 }
 
-void	quote_validity(char *user_input)
+bool	quote_validity(t_mshell *shell)
 {
-	if (ft_strset(user_input, "\"\'"))
+	if (ft_strset(shell->user_input, "\"\'"))
 	{
-		if (!valid_quotes(user_input))
+		if (!valid_quotes(shell->user_input))
 		{
 			ft_putendl_fd("Error, unclosed quotes", 2);
-			free(user_input);
-			exit(EXIT_FAILURE);
+			return (FAILURE);
 		}
 	}
+	return (SUCCESS);
 }

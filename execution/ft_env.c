@@ -3,32 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 14:00:40 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 17:03:42 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/21 17:09:30 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	env_error(t_mshell *shell)
+int	ft_env(t_mshell *shell, int export)
 {
-	ft_putstr_fd(shell->command[0], 2);
-	ft_putstr_fd(": ", 2);
-	ft_putstr_fd(shell->command[1], 2);
-	ft_putendl_fd(": No such file or directory", 2);
-}
+	t_param	*var;
+	t_param	*path;
 
-void	ft_env(t_mshell *shell, int export)
-{
-    t_param	*var;
-
+	path = get_param(shell->params, "PATH");
 	if (array_len(shell->command) > 1)
-	{
-		env_error(shell);
-		return ;
-	}
+		return (command_error(shell, path, ": No such file or directory", 127));
 	var = shell->params;
 	while (var)
 	{
@@ -43,4 +34,5 @@ void	ft_env(t_mshell *shell, int export)
 		}
 		var = var->next;
 	}
+	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 18:39:28 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/08 12:04:39 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 14:29:49 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_echo(t_mshell *shell)
+int	ft_echo(t_mshell *shell)
 {
 	int	i;
 	int	n;
@@ -32,6 +32,5 @@ void	ft_echo(t_mshell *shell)
 	}
 	if (n != 0)
 		printf("\n");
-	ft_free(shell->command);
-	exit (0);
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/28 14:24:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 17:37:04 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/21 15:52:05 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,33 @@ int	array_len(char	**array)
 {
 	int	i;
 
+	if (!array || !*array)
+		return (0);
 	i = 0;
 	while (array[i])
 		i++;
 	return (i);
 }
 
-char	**append_to_array(char	**array, char *new_string)
+char	**append_to_array(t_mshell *shell, char	**array, char *new_string)
 {
 	char	**new_array;
 	int		i;
 
 	i = 0;
+	if (!new_string || !array)
+		return (malloc_error(shell, 0, -1), free(new_string), NULL);
 	new_array = malloc ((array_len(array) + 2) * sizeof(char *));
 	if (!new_array)
-		return (NULL);
+		return (malloc_error(shell, 0, -1), free(new_string), NULL);
 	while (array[i])
 	{
 		new_array[i] = ft_strdup(array[i]);
+		if (!new_array[i])
+		{
+			ft_free(new_array);
+			return (malloc_error(shell, 0, -1), free(new_string), NULL);
+		}
 		i++;
 	}
 	new_array[i] = new_string;

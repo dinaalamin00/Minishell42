@@ -3,53 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/08 13:28:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/08 14:11:04 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/22 09:11:01 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	del_var(t_param **param, char *key)
+static t_param	*get_before(t_param *params, t_param *node)
 {
-	t_param	*curr;
-	t_param	*next;
+	t_param	*before;
 
-	curr = *param;
-	next = curr -> next;
-	if (!ft_strncmp(curr->key, key, ft_strlen(key) + 1))
-	{
-		free(curr->key);
-		free(curr->value);
-		*param = next;
-		return ;
-	}
-	while (next != NULL)
-	{
-		next = curr -> next;
-		if (!ft_strncmp(curr->key, key, ft_strlen(key) + 1))
-		{
-			free(next->key);
-			free(next->value);
-			curr -> next = next->next;
-		}
-		curr = curr->next;
-	}
+	before = params;
+	while (before->next && before->next != node)
+		before = before->next;
+	return (before);
 }
 
-void	ft_unset(t_mshell *shell)
+void	del_var(t_param **params, char *key)
+{
+	t_param	*node;
+	t_param	*before_node;
+
+	node = get_param(*params, key);
+	if (!node)
+		return ;
+	if (*params == node)
+		*params = node->next;
+	else
+	{
+		before_node = get_before(*params, node);
+		before_node->next = node->next;
+	}
+	free(node->key);
+	free(node->value);
+	free(node);
+}
+
+int	ft_unset(t_mshell *shell)
 {
 	int	i;
+	int	exit_code;
 
 	i = 1;
+	exit_code = 0;
 	while (shell->command[i])
 	{
 		if (!valid_key(shell->command[i]) || ft_strchr(shell->command[i], '='))
+		{
 			key_error("unset", shell->command[i]);
+			exit_code = 1;
+		}
 		else
 			del_var(&shell->params, shell->command[i]);
 		i++;
 	}
+	return (exit_code);
 }

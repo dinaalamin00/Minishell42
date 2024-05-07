@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/04 09:59:25 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/10 13:32:00 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/22 17:40:28 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	wordcount(const char *s, char c)
 
 	cnt = 0;
 	i = 0;
-	while (s[i])
+	while (s && s[i])
 	{
 		if (s[i] != c)
 		{
@@ -70,7 +70,7 @@ char	**ft_split(char const *s, char c)
 	char	**ptr;
 
 	ptr = malloc ((wordcount(s, c) + 1) * sizeof(char *));
-	if (!ptr)
+	if (!ptr || !s)
 		return (NULL);
 	i = 0;
 	k = 0;

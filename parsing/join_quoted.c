@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   join_quoted.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 13:46:15 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 16:45:07 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/03 18:05:18 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,18 @@ static int	last_element(char **array)
 	return (i);
 }
 
-static char	**join_to_last(char	**array, char *new_string)
+static	char	*trim_str_back(char *str, char **spaces, char *new_string)
+{
+	if (ft_strset(new_string, "\'\""))
+	{
+		*spaces = ft_strrset(new_string, "\'\"");
+		str = custom_trim(str, 32, 2);
+		str = custom_trim(str, **spaces, 2);
+	}
+	return (str);
+}
+
+static char	**join_to_last(char **array, char *new_string)
 {
 	char	*new_temp;
 	char	symbol;
@@ -36,15 +47,13 @@ static char	**join_to_last(char	**array, char *new_string)
 	new_temp = ft_strdup(new_string);
 	if (ft_strset(new_string, "\'\""))
 		new_temp = custom_trim(new_temp, *new_temp, 1);
+	if (!new_temp)
+		return (NULL);
 	array[i] = ft_strjoin(custom_trim(custom_trim(array[i], 32, 0), symbol, 0),
 			new_temp);
-	if (ft_strset(new_string, "\'\""))
-	{
-		spaces = ft_strrset(new_string, "\'\"");
-		array[i] = custom_trim(array[i], 32, 2);
-		array[i] = custom_trim(array[i], *spaces, 2);
-	}
-	close_quote(&array[i], new_string);
+	array[i] = trim_str_back(array[i], &spaces, new_string);
+	if (!array[i] || !close_quote(&array[i], new_string))
+		return (free(new_temp), NULL);
 	if (ft_strset(new_string, "\'\""))
 		array[i] = ft_strjoin(array[i], spaces + 1);
 	return (free(new_temp), array);
@@ -75,7 +84,7 @@ static int	to_be_joined(char **array, char *new)
 	return (0);
 }
 
-void	join_quote(t_mshell *shell)
+bool	join_quote(t_mshell *shell)
 {
 	char	**new_token;
 	int		i;
@@ -83,19 +92,23 @@ void	join_quote(t_mshell *shell)
 	i = 0;
 	new_token = malloc(1 * sizeof(char *));
 	if (!new_token)
-		return ;
+		return (FAILURE);
 	new_token[0] = NULL;
 	while (shell->tokens[i])
 	{
-		new_token = append_to_array(new_token, ft_strdup(shell->tokens[i]));
+		new_token = append_to_array(shell, new_token,
+				ft_strdup(shell->tokens[i]));
+		if (!new_token)
+			return (FAILURE);
 		while (shell->tokens[i + 1]
 			&& to_be_joined(new_token, shell->tokens[i + 1]))
 		{
 			i++;
 			new_token = join_to_last(new_token, shell->tokens[i]);
+			if (!new_token)
+				return (FAILURE);
 		}
 		i++;
 	}
-	ft_free(shell->tokens);
-	shell->tokens = new_token;
+	return (ft_free(shell->tokens), shell->tokens = new_token, SUCCESS);
 }

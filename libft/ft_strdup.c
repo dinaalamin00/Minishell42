@@ -6,7 +6,7 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 15:17:28 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/27 11:38:31 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/25 18:20:00 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*ft_strdup(const char *s)
 	char	*ptr;
 
 	i = 0;
+	if (!s)
+		return (NULL);
 	ptr = malloc ((ft_strlen(s) + 1) * sizeof(char));
 	if (!ptr)
 		return (NULL);

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   split_by_qoute.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
+/*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 15:37:34 by diahmed           #+#    #+#             */
-/*   Updated: 2024/04/06 16:23:02 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/04/21 15:46:19 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_quote(char c)
+bool	is_quote(char c)
 {
 	if ((c == '\"') || (c == '\''))
 		return (1);
@@ -23,7 +23,6 @@ static char	*copy_quoted_str(char *user_input, int *i)
 {
 	int		start;
 	char	symbol;
-	char	*token;
 
 	start = *i;
 	while (user_input[*i] == 32)
@@ -39,16 +38,14 @@ static char	*copy_quoted_str(char *user_input, int *i)
 	}
 	else
 	{
-		while (!is_quote(user_input[*i])
-			&& user_input[*i])
+		while (!is_quote(user_input[*i]) && user_input[*i])
 		{
 			if (user_input[*i] == 32 && is_quote(user_input[*i + 1]))
 				break ;
 			(*i)++;
 		}
 	}
-	token = ft_substr(user_input, start, (*i) - start);
-	return (token);
+	return (ft_substr(user_input, start, (*i) - start));
 }
 
 static int	token_counter(char *user_input)
@@ -79,7 +76,7 @@ static int	token_counter(char *user_input)
 	return (cnt);
 }
 
-void	split_by_quote(t_mshell *shell)
+bool	split_by_quote(t_mshell *shell)
 {
 	char	**tokens;
 	int		i;
@@ -87,23 +84,17 @@ void	split_by_quote(t_mshell *shell)
 
 	tokens = malloc((token_counter(shell->user_input) + 1) * sizeof(char *));
 	if (!tokens)
-	{
-		ft_putendl_fd("Error, malloc", 2);
-		free(shell->user_input);
-		exit (EXIT_FAILURE);
-	}
+		return (malloc_error(shell, 0, -1), FAILURE);
 	i = 0;
 	j = 0;
 	while (shell->user_input[i])
 	{
 		tokens[j] = copy_quoted_str(shell->user_input, &i);
 		if (!tokens[j])
-		{
-			ft_free(tokens);
-			return ;
-		}
+			return (ft_free(tokens), malloc_error(shell, 0, -1), FAILURE);
 		j++;
 	}
 	tokens[j] = NULL;
 	shell->tokens = tokens;
+	return (SUCCESS);
 }

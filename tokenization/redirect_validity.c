@@ -6,7 +6,7 @@
 /*   By: diahmed <diahmed@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/22 13:35:10 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/29 18:36:33 by diahmed          ###   ########.fr       */
+/*   Updated: 2024/05/04 13:05:19 by diahmed          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 //- checks that each consecutive redirections should be less than 3
 //- each redirect should not be followed by null
 
-int	is_redirect(char c)
+bool	is_redirect(char c)
 {
 	if ((c == '<') || (c == '>'))
 		return (1);
@@ -30,11 +30,9 @@ static int	valid_redirect(char **user_input, int i)
 	return (1);
 }
 
-void	redirect_validity(t_mshell *shell)
+bool	redirect_validity(t_mshell *shell)
 {
 	int		i;
-	char	*trimmed_input;
-	char	*input_ptr;
 
 	i = 0;
 	while (shell->tokens[i])
@@ -46,11 +44,11 @@ void	redirect_validity(t_mshell *shell)
 				if (!valid_redirect(shell->tokens, i))
 				{
 					ft_putendl_fd("syntax error, unexpected token", 2);
-					ft_free(shell->tokens);
-					exit (EXIT_FAILURE);
+					return (FAILURE);
 				}
 			}
 		}
 		i++;
 	}
+	return (SUCCESS);
 }

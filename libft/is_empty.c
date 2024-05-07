@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   is_empty.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/21 17:59:19 by mafaisal          #+#    #+#             */
-/*   Updated: 2024/04/06 10:21:29 by mafaisal         ###   ########.fr       */
+/*   Created: 2024/05/06 09:24:34 by mafaisal          #+#    #+#             */
+/*   Updated: 2024/05/06 09:26:23 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "libft.h"
 
-void	lexer(t_mshell *shell)
+int	is_empty(char *str)
 {
-	quote_validity(shell->user_input);
-	split_by_quote(shell);
-	free(shell->user_input);
-	split_by_redirect(shell);
-	split_by_space(shell);
-	redirect_validity(shell);
+	int	i;
+
+	i = 0;
+	while (str[i] == 32 || str[i] == '\t')
+		i++;
+	if (str[i] == '\0')
+		return (1);
+	return (0);
 }

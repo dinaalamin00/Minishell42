@@ -6,12 +6,13 @@
 /*   By: mafaisal <mafaisal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 13:04:46 by diahmed           #+#    #+#             */
-/*   Updated: 2024/03/25 18:11:20 by mafaisal         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:05:48 by mafaisal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include <stdio.h>
+
 static int	line_len(char *str, char *set)
 {
 	int	i;
